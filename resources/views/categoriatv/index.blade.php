@@ -17,7 +17,7 @@ Con Semanarios
                         <a href="{{ route('gobernaciontv.index') }}" class="btn btn-sm btn-primary">Gestion gobernación TV</a>
                         <div class="float-right">
                             <a href="{{ route('categoriatv.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ __('Crear nuevo registro') }}
+                                {{ __('Crear nuevo categoria') }}
                             </a>
                         </div>
                     </div>

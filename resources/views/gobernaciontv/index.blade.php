@@ -14,10 +14,10 @@ Con Semanarios
                         <span id="card_title">
                             {{ __('Gestión Gobernación TV') }}
                         </span>
-                        <a href="{{ route('categoriatv.index') }}" class="btn btn-sm btn-primary">Gestión categoria</a>
+                        <a href="{{ route('categoriatv.index') }}" class="btn btn-sm btn-primary">Gestión categoria TV</a>
                         <div class="float-right">
                             <a href="{{ route('gobernaciontv.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ __('Crear nuevo registro') }}
+                                {{ __('Crear nuevo programa') }}
                             </a>
                         </div>
                     </div>

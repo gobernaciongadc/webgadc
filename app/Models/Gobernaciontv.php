@@ -15,6 +15,6 @@ class Gobernaciontv extends Model
     // app/Models/Gobernaciontv.php
     public function categoriaTv()
     {
-        return $this->belongsTo(CategoriaTv::class, 'categoriatv_id');
+        return $this->belongsTo(Categoriatv::class, 'categoriatv_id');
     }
 }

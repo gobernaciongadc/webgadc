@@ -14,10 +14,10 @@ Con Jaku
                         <span id="card_title">
                             {{ __('Gestión Categoria Jaku') }}
                         </span>
-                        <a href="{{ route('gestionjakutv.index') }}" class="btn btn-sm btn-primary">Gestión Jaku</a>
+                        <a href="{{ route('gestionjakutv.index') }}" class="btn btn-sm btn-primary">Gestión archivos digitales Jaku</a>
                         <div class="float-right">
                             <a href="{{ route('jakutv.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ __('Crear nuevo registro') }}
+                                {{ __('Crear nueva tarjeta Jaku') }}
                             </a>
                         </div>
                     </div>

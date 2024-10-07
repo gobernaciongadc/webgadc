@@ -13,12 +13,12 @@ Con Semanarios
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
                         <span id="card_title">
-                            {{ __('Gestión de transmisiones en digitales de tv ') }}
+                            {{ __('Gestión de transmisiones en vivo ') }}
                         </span>
 
                         <div class="float-right">
                             <a href="{{ route('transmisiones.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ __('Crear nuevo registro') }}
+                                {{ __('Crear nueva transmision') }}
                             </a>
                         </div>
                     </div>
