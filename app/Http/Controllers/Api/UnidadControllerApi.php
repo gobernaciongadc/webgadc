@@ -57,8 +57,7 @@ class UnidadControllerApi extends Controller
         PreguntaService $preguntaService,
         HoyHistoriaService $hoyHistoriaService,
         AgendaOficialService $agendaOficialService
-    )
-    {
+    ) {
         $this->unidadService = $unidadService;
         $this->imagenUnidadGaleriaService = $imagenUnidadGaleriaService;
         $this->biografiaService = $biografiaService;
@@ -84,25 +83,26 @@ class UnidadControllerApi extends Controller
             $comun->status = true;
             $comun->message = 'Datos Banner';
             $comun->data = new Collection();
-            foreach ($despacho->imagenUnidades as $key => $banner){
-                if ($banner->estado == 'AC'){
+            foreach ($despacho->imagenUnidades as $key => $banner) {
+                if ($banner->estado == 'AC') {
                     $comun2 = new ComunDto();
-                    $comun2->bgImage = asset('storage/uploads/'.$banner->imagen);
+                    $comun2->bgImage = asset('storage/uploads/' . $banner->imagen);
                     $comun2->texto = $despacho->nombre;
                     $comun->data->push($comun2);
                 }
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
-    public function datosPagina(){
+    public function datosPagina()
+    {
         try {
             $despacho = $this->unidadService->getUnidadDespacho();
             $comun = new ComunDto();
@@ -116,8 +116,8 @@ class UnidadControllerApi extends Controller
             $unidad->vision = $despacho->vision;
             $unidad->objetivo = $despacho->objetivo;
             $unidad->historia = $despacho->historia;
-            $unidad->organigrama = asset('storage/uploads/'.$despacho->organigrama);
-            $unidad->imagenIcono = asset('storage/uploads/'.$despacho->imagen_icono);
+            $unidad->organigrama = asset('storage/uploads/' . $despacho->organigrama);
+            $unidad->imagenIcono = asset('storage/uploads/' . $despacho->imagen_icono);
             $unidad->celularWhatsapp = $despacho->celular_wp;
             $unidad->telefonos = $despacho->telefonos;
             $unidad->email = $despacho->email;
@@ -129,14 +129,14 @@ class UnidadControllerApi extends Controller
             $unidad->direccion = $despacho->direccion;
             $unidad->latitud = $despacho->latitud;
             $unidad->longitud = $despacho->longitud;
-            $unidad->imagenDireccion = asset('storage/uploads/'.$despacho->imagen_direccion);
+            $unidad->imagenDireccion = asset('storage/uploads/' . $despacho->imagen_direccion);
             $comun->data->despacho = $unidad;
 
             $biografia = $this->biografiaService->getBiografiaGobernador();
             $biografiaRes = new ComunDto();
-            if (!empty($biografia)){
-                $biografiaRes->nombreCompleto = $biografia->nombres.' '.$biografia->apellidos;
-                $biografiaRes->foto = asset('storage/uploads/'.$biografia->imagen_foto);
+            if (!empty($biografia)) {
+                $biografiaRes->nombreCompleto = $biografia->nombres . ' ' . $biografia->apellidos;
+                $biografiaRes->foto = asset('storage/uploads/' . $biografia->imagen_foto);
                 $biografiaRes->profesion = $biografia->profesion;
                 $biografiaRes->resenia = $biografia->resenia;
             }
@@ -144,22 +144,22 @@ class UnidadControllerApi extends Controller
 
             $secretarias = $this->unidadService->getListaSecretariasAc();
             $secretariasRes = new Collection();
-            foreach ($secretarias as $key => $secretaria){
+            foreach ($secretarias as $key => $secretaria) {
                 $secre = new ComunDto();
                 $secre->undId = $secretaria->und_id;
                 $secre->nombre = $secretaria->nombre;
-                $secre->imagenIcono = asset('storage/uploads/'.$secretaria->imagen_icono);
+                $secre->imagenIcono = asset('storage/uploads/' . $secretaria->imagen_icono);
                 $secretariasRes->push($secre);
             }
             $comun->data->secretarias = $secretariasRes;
 
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -180,13 +180,13 @@ class UnidadControllerApi extends Controller
             $comun->data->linkTwitter = $despacho->link_twiter;
             $comun->data->linkFacebook = $despacho->link_facebook;
             $comun->data->linkYoutube = $despacho->link_youtube;
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -199,20 +199,20 @@ class UnidadControllerApi extends Controller
             $comun->message = 'Lista de Secretarias';
             $comun->data = new Collection();
             $secretarias = $this->unidadService->getListaSecretariasAc();
-            foreach ($secretarias as $key => $secretaria){
+            foreach ($secretarias as $key => $secretaria) {
                 $secre = new ComunDto();
                 $secre->undId = $secretaria->und_id;
                 $secre->nombre = $secretaria->nombre;
-                $secre->imagenIcono = asset('storage/uploads/'.$secretaria->imagen_icono);
+                $secre->imagenIcono = asset('storage/uploads/' . $secretaria->imagen_icono);
                 $comun->data->push($secre);
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -225,7 +225,7 @@ class UnidadControllerApi extends Controller
             $comun->message = 'Datos De La Unidad';
             $comun->data = new ComunDto();
             $secretaria = $this->unidadService->getById($und_id);
-            if (!empty($secretaria)){
+            if (!empty($secretaria)) {
                 $comun->data->undId = $secretaria->und_id;
                 $comun->data->bioId = $secretaria->bio_id;
                 $comun->data->nombre = $secretaria->nombre;
@@ -233,8 +233,8 @@ class UnidadControllerApi extends Controller
                 $comun->data->vision = $secretaria->vision;
                 $comun->data->objetivo = $secretaria->objetivo;
                 $comun->data->historia = $secretaria->historia;
-                $comun->data->organigrama = asset('storage/uploads/'.$secretaria->organigrama);
-                $comun->data->imagenIcono = asset('storage/uploads/'.$secretaria->imagen_icono);
+                $comun->data->organigrama = asset('storage/uploads/' . $secretaria->organigrama);
+                $comun->data->imagenIcono = asset('storage/uploads/' . $secretaria->imagen_icono);
                 $comun->data->telefonos = $secretaria->telefonos;
                 $comun->data->celularWhatsapp = $secretaria->celular_wp;
                 $comun->data->email = $secretaria->email;
@@ -246,15 +246,15 @@ class UnidadControllerApi extends Controller
                 $comun->data->direccion = $secretaria->direccion;
                 $comun->data->latitud = $secretaria->latitud;
                 $comun->data->longitud = $secretaria->longitud;
-                $comun->data->imagenDireccion = asset('storage/uploads/'.$secretaria->imagen_direccion);
+                $comun->data->imagenDireccion = asset('storage/uploads/' . $secretaria->imagen_direccion);
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
     //end secretarias
@@ -269,20 +269,20 @@ class UnidadControllerApi extends Controller
             $comun->message = 'Lista de Servicios Departamentales';
             $comun->data = new Collection();
             $servicios = $this->unidadService->getListaServiciosDepartamentalesAc();
-            foreach ($servicios as $key => $servicio){
+            foreach ($servicios as $key => $servicio) {
                 $secre = new ComunDto();
                 $secre->undId = $servicio->und_id;
                 $secre->nombre = $servicio->nombre;
-                $secre->imagenIcono = asset('storage/uploads/'.$servicio->imagen_icono);
+                $secre->imagenIcono = asset('storage/uploads/' . $servicio->imagen_icono);
                 $comun->data->push($secre);
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
     //end servicios departamentales
@@ -296,21 +296,21 @@ class UnidadControllerApi extends Controller
             $comun->status = true;
             $comun->message = 'Datos Banner';
             $comun->data = new Collection();
-            foreach ($unidad->imagenUnidades as $key => $banner){
-                if ($banner->estado == 'AC'){
+            foreach ($unidad->imagenUnidades as $key => $banner) {
+                if ($banner->estado == 'AC') {
                     $comun2 = new ComunDto();
-                    $comun2->bgImage = asset('storage/uploads/'.$banner->imagen);
+                    $comun2->bgImage = asset('storage/uploads/' . $banner->imagen);
                     $comun2->texto = $unidad->nombre;
                     $comun->data->push($comun2);
                 }
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -343,13 +343,13 @@ class UnidadControllerApi extends Controller
             $unidad->mostrarDocumentos = $mostrarDocumentos;
 
             $mostrarPublicaciones = false;
-            if ($unidadThis->und_id == $idGaceta){
+            if ($unidadThis->und_id == $idGaceta) {
                 $mostrarPublicaciones = true;
             }
             $unidad->mostrarPublicaciones = $mostrarPublicaciones;
 
             $mostrarRendicion = false;
-            if ($unidadThis->und_id == $idPlanificacion){
+            if ($unidadThis->und_id == $idPlanificacion) {
                 $mostrarRendicion = true;
             }
             $unidad->mostrarRendicion = $mostrarRendicion;
@@ -358,7 +358,7 @@ class UnidadControllerApi extends Controller
             $unidad->mostrarDenuncias = $mostrarDenuncias;
 
             $mostrarConvocatorias = false;
-            if ($unidadThis->und_id == $idContratacion){
+            if ($unidadThis->und_id == $idContratacion) {
                 $mostrarConvocatorias = true;
             }
             $unidad->mostrarConvocatorias = $mostrarConvocatorias;
@@ -386,13 +386,13 @@ class UnidadControllerApi extends Controller
             $unidad->linkYoutube = $unidadThis->link_youtube;
 
             $comun->data = $unidad;
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -411,16 +411,16 @@ class UnidadControllerApi extends Controller
             $unidad->descripcion = $unidadThis->historia;
 
             $organigrama = $unidadThis->organigrama;
-            if(empty($organigrama)){
+            if (empty($organigrama)) {
                 $organigrama = 'uno.jpg';
             }
-            $imagenOrganigrama = asset('storage/uploads/'.$organigrama);
+            $imagenOrganigrama = asset('storage/uploads/' . $organigrama);
             $mapa_organigrama = "<img alt='Archivo No Encontrado' src='$imagenOrganigrama' draggable='false'>";
-            if (str_ends_with($organigrama,'.pdf') || str_ends_with($organigrama,'.PDF')){
+            if (str_ends_with($organigrama, '.pdf') || str_ends_with($organigrama, '.PDF')) {
                 $mapa_organigrama = "<iframe id='fred' style='border:1px solid #666CCC' title='PDF in an i-Frame' src='$imagenOrganigrama' frameborder='1' scrolling='auto' height='900' width='850' ></iframe>";
             }
 
-            if (!empty($unidadThis->mapa_organigrama)){
+            if (!empty($unidadThis->mapa_organigrama)) {
                 $mapa_organigrama = $unidadThis->mapa_organigrama;
             }
             $unidad->organigrama = $mapa_organigrama;
@@ -435,12 +435,12 @@ class UnidadControllerApi extends Controller
             $unidad->linkYoutube = $unidadThis->link_youtube;
 
             $biografia = $unidadThis->biografia;
-            if(!empty($biografia)){
-                $unidad->nombreBiografia = $biografia->nombres.' '.$biografia->apellidos;
+            if (!empty($biografia)) {
+                $unidad->nombreBiografia = $biografia->nombres . ' ' . $biografia->apellidos;
                 $unidad->profesionBiografia = $biografia->profesion;
-                $unidad->imagenBiografia = asset('storage/uploads/'.$biografia->imagen_foto);
+                $unidad->imagenBiografia = asset('storage/uploads/' . $biografia->imagen_foto);
                 $unidad->reseniaBiografia = $biografia->resenia;
-            }else{
+            } else {
                 $unidad->nombreBiografia = '';
                 $unidad->profesionBiografia = '';
                 $unidad->imagenBiografia = asset('storage/uploads/sinimagen.jpg');
@@ -452,15 +452,15 @@ class UnidadControllerApi extends Controller
             $unidad->direccion = $unidadThis->direccion;
             $unidad->latitud = $unidadThis->latitud;
             $unidad->longitud = $unidadThis->longitud;
-            $unidad->imagenDireccion = asset('storage/uploads/'.$unidadThis->imagen_direccion);
+            $unidad->imagenDireccion = asset('storage/uploads/' . $unidadThis->imagen_direccion);
             $comun->data = $unidad;
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -474,22 +474,22 @@ class UnidadControllerApi extends Controller
 
             //imagenes de galeria de despacho
             $limiteImagenes = 100;
-            $imagenes = $this->imagenUnidadGaleriaService->getImagenGaleriaAcAndPublicarSiOfUnidad($und_id,$limiteImagenes);
-            foreach ($imagenes as $key=>$imagen){
+            $imagenes = $this->imagenUnidadGaleriaService->getImagenGaleriaAcAndPublicarSiOfUnidad($und_id, $limiteImagenes);
+            foreach ($imagenes as $key => $imagen) {
                 $ima = new ComunDto();
                 $ima->titulo = $imagen->titulo;
                 $ima->descripcion = $imagen->descripcion;
-                $ima->url = asset('storage/uploads/'.$imagen->imagen);
+                $ima->url = asset('storage/uploads/' . $imagen->imagen);
                 $comun->data->push($ima);
             }
 
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -503,30 +503,30 @@ class UnidadControllerApi extends Controller
             $comun->message = $unidad->nombre;
             $comun->data = new Collection();
             $servicios = $this->unidadService->getUnidadesDependientes($und_id);
-            foreach ($servicios as $key => $servicio){
-                if($unidad->und_id == 1){
-                    if($servicio->tipoUnidad->tipo != 1){
+            foreach ($servicios as $key => $servicio) {
+                if ($unidad->und_id == 1) {
+                    if ($servicio->tipoUnidad->tipo != 1) {
                         $secre = new ComunDto();
                         $secre->undId = $servicio->und_id;
                         $secre->nombre = $servicio->nombre;
-                        $secre->imagenIcono = asset('storage/uploads/'.$servicio->imagen_icono);
+                        $secre->imagenIcono = asset('storage/uploads/' . $servicio->imagen_icono);
                         $comun->data->push($secre);
                     }
-                }else{
+                } else {
                     $secre = new ComunDto();
                     $secre->undId = $servicio->und_id;
                     $secre->nombre = $servicio->nombre;
-                    $secre->imagenIcono = asset('storage/uploads/'.$servicio->imagen_icono);
+                    $secre->imagenIcono = asset('storage/uploads/' . $servicio->imagen_icono);
                     $comun->data->push($secre);
                 }
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -545,28 +545,28 @@ class UnidadControllerApi extends Controller
             $existeAgenda = false;
             $fechaActual = date('Y-m-d');
             $historias = $this->hoyHistoriaService->getAllHistoriasAcAndPublicarSiByFecha($fechaActual);
-            if (count($historias) > 0){
+            if (count($historias) > 0) {
                 $existeHistoria = true;
             }
             $pregunta = $this->preguntaService->getUltimaPregunta();
-            if (!empty($pregunta)){
+            if (!empty($pregunta)) {
                 $existeEncuesta = true;
             }
             $agenda = $this->agendaOficialService->getAgendaOficialAcAndPublicarSiByFecha($fechaActual);
-            if (!empty($agenda)){
-                $existeAgenda= true;
+            if (!empty($agenda)) {
+                $existeAgenda = true;
             }
             $comun->data->existeHistoria = $existeHistoria;
             $comun->data->existeEncuesta = $existeEncuesta;
             $comun->data->existeAgenda = $existeAgenda;
 
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 }

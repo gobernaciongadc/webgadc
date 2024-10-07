@@ -13,8 +13,7 @@ class PublicidadControllerApi extends Controller
     protected $publicidadService;
     public function __construct(
         PublicidadService $publicidadService
-    )
-    {
+    ) {
         $this->publicidadService = $publicidadService;
     }
 
@@ -27,9 +26,9 @@ class PublicidadControllerApi extends Controller
             $comun->data = new Collection();
             $publicidades = new Collection();
             $publicidades = $this->publicidadService->getAllPublicidadAcAndPublicarSiActivas();
-            if (count($publicidades) < 3){
+            if (count($publicidades) < 3) {
                 $limite = 3 - count($publicidades);
-                for($i=0;$i<$limite;$i++){
+                for ($i = 0; $i < $limite; $i++) {
                     $publi = new ComunDto();
                     $publi->nombre = 'Espacio Publicitario';
                     $publi->imagen = asset('images/espaciodisponible.jpg');
@@ -38,14 +37,13 @@ class PublicidadControllerApi extends Controller
                 }
             }
             $comun->data = $publicidades;
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
-
 }

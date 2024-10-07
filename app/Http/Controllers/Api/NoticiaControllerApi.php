@@ -16,8 +16,7 @@ class NoticiaControllerApi extends Controller
     public function __construct(
         NoticiaService $noticiaService,
         UnidadService $unidadService
-    )
-    {
+    ) {
         $this->noticiaService = $noticiaService;
         $this->unidadService = $unidadService;
     }
@@ -31,44 +30,44 @@ class NoticiaControllerApi extends Controller
             $comun->data = new Collection();
 
             //noticias de despacho
-            $limiteDespacho = 4;
-            $noticiasDespacho = $this->noticiaService->getNoticiasPublicarSiAndAcByLimitAndPrioridadOfDespacho($limiteDespacho,1);
-            if ($noticiasDespacho->count() < $limiteDespacho){
+            $limiteDespacho = 3;
+            $noticiasDespacho = $this->noticiaService->getNoticiasPublicarSiAndAcByLimitAndPrioridadOfDespacho($limiteDespacho, 1);
+            if ($noticiasDespacho->count() < $limiteDespacho) {
                 $limiteDespachoNormal = ($limiteDespacho - $noticiasDespacho->count());
-                $noticiasNormalesDespacho = $this->noticiaService->getNoticiasPublicarSiAndAcByLimitAndPrioridadOfDespacho($limiteDespachoNormal,2);
+                $noticiasNormalesDespacho = $this->noticiaService->getNoticiasPublicarSiAndAcByLimitAndPrioridadOfDespacho($limiteDespachoNormal, 2);
                 $noticiasDespacho = $noticiasDespacho->merge($noticiasNormalesDespacho);
             }
-            foreach ($noticiasDespacho as $key=>$noticia){
+            foreach ($noticiasDespacho as $key => $noticia) {
                 $noti = new ComunDto();
                 $noti->slug = $noticia->slug;
                 $noti->antetitulo = $noticia->antetitulo;
                 $noti->titulo = $noticia->titulo;
-                $noti->imagen = asset('storage/uploads/'.$noticia->imagen);
+                $noti->imagen = asset('storage/uploads/' . $noticia->imagen);
                 $noti->resumen = $noticia->resumen;
                 $noti->contenido = $noticia->contenido;
                 $noti->fecha = $noticia->fecha;
                 $noti->galeria = new Collection();
-                foreach ($noticia->imagenesNoticia as $key2 =>$imagen){
-                    if ($imagen->estado == 'AC' && $imagen->publicar == 1){
+                foreach ($noticia->imagenesNoticia as $key2 => $imagen) {
+                    if ($imagen->estado == 'AC' && $imagen->publicar == 1) {
                         $imagenNoticia = new ComunDto();
                         $imagenNoticia->titulo = $imagen->titulo;
-                        $imagenNoticia->imagen = asset('storage/uploads/'.$imagen->imagen);
+                        $imagenNoticia->imagen = asset('storage/uploads/' . $imagen->imagen);
                         $noti->galeria->push($imagenNoticia);
                     }
                 }
                 $noti->video = $noticia->link_video;
-                $noti->categorias = explode(',',$noticia->categorias);
-                $noti->palabrasClave = explode(',',$noticia->palabras_clave);
+                $noti->categorias = explode(',', $noticia->categorias);
+                $noti->palabrasClave = explode(',', $noticia->palabras_clave);
                 $comun->data->push($noti);
             }
 
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -80,40 +79,40 @@ class NoticiaControllerApi extends Controller
             $comun->message = 'Noticia';
             $noticia = $this->noticiaService->getNoticiaBySlug($slug);
             $noti = new ComunDto();
-            if (empty($noticia)){
+            if (empty($noticia)) {
                 $comun->status = false;
                 $comun->message = 'No existe la noticia';
                 $comun->data = null;
-                return response()->json($comun->toArray(),200);
-            }else{
+                return response()->json($comun->toArray(), 200);
+            } else {
                 $noti->slug = $noticia->slug;
                 $noti->antetitulo = $noticia->antetitulo;
                 $noti->titulo = $noticia->titulo;
-                $noti->imagen = asset('storage/uploads/'.$noticia->imagen);
+                $noti->imagen = asset('storage/uploads/' . $noticia->imagen);
                 $noti->resumen = $noticia->resumen;
                 $noti->contenido = $noticia->contenido;
                 $noti->fecha = $noticia->fecha;
                 $noti->galeria = new Collection();
-                foreach ($noticia->imagenesNoticia as $key2 =>$imagen){
-                    if ($imagen->estado == 'AC' && $imagen->publicar == 1){
+                foreach ($noticia->imagenesNoticia as $key2 => $imagen) {
+                    if ($imagen->estado == 'AC' && $imagen->publicar == 1) {
                         $imagenNoticia = new ComunDto();
                         $imagenNoticia->titulo = $imagen->titulo;
-                        $imagenNoticia->imagen = asset('storage/uploads/'.$imagen->imagen);
+                        $imagenNoticia->imagen = asset('storage/uploads/' . $imagen->imagen);
                         $noti->galeria->push($imagenNoticia);
                     }
                 }
                 $noti->video = $noticia->link_video;
-                $noti->categorias = explode(',',$noticia->categorias);
-                $noti->palabrasClave = explode(',',$noticia->palabras_clave);
+                $noti->categorias = explode(',', $noticia->categorias);
+                $noti->palabrasClave = explode(',', $noticia->palabras_clave);
             }
             $comun->data = $noti;
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = null;
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -126,23 +125,23 @@ class NoticiaControllerApi extends Controller
             $comun->data = new ComunDto();
             $categorias = $this->noticiaService->getAllCategoriasNoticias();
             $categoriasArray = array();
-            foreach ($categorias as $cate){
-                array_push($categoriasArray,$cate->claves);
+            foreach ($categorias as $cate) {
+                array_push($categoriasArray, $cate->claves);
             }
             $comun->data->categorias = $categoriasArray;
             $palabras = $this->noticiaService->getAllPalabrasClavesNoticias();
             $palabrasArray = array();
-            foreach ($palabras as $pala){
-                array_push($palabrasArray,$pala->claves);
+            foreach ($palabras as $pala) {
+                array_push($palabrasArray, $pala->claves);
             }
             $comun->data->palabras = $palabrasArray;
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = null;
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -154,33 +153,33 @@ class NoticiaControllerApi extends Controller
             $search = '';
             $categoria = '';
             $palabra = '';
-            if ($request->has('limite')){
+            if ($request->has('limite')) {
                 $limite = $request->limite;
             }
-            if ($request->has('orden')){
+            if ($request->has('orden')) {
                 $orden = $request->orden;
             }
-            if ($request->has('search')){
+            if ($request->has('search')) {
                 $search = $request->search;
             }
-            if ($request->has('categoria')){
+            if ($request->has('categoria')) {
                 $categoria = $request->categoria;
             }
-            if ($request->has('palabra')){
+            if ($request->has('palabra')) {
                 $palabra = $request->palabra;
             }
             $comun = new ComunDto();
             $comun->status = true;
             $comun->message = 'Todas las Noticias Paginate';
             $comun->data = new ComunDto();
-            $comun->data = $this->noticiaService->getAllAcPublicarSiAndPaginateAndSearchAndSort($limite,$search,$orden,$palabra,$categoria);
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            $comun->data = $this->noticiaService->getAllAcPublicarSiAndPaginateAndSearchAndSort($limite, $search, $orden, $palabra, $categoria);
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = null;
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -195,38 +194,38 @@ class NoticiaControllerApi extends Controller
 
             //noticias de despacho
             $limite = 10;
-            $noticiasDespacho = $this->noticiaService->getNoticiasPublicarSiAndAcByLimitAndUnidad($und_id,$limite);
-            foreach ($noticiasDespacho as $key=>$noticia){
+            $noticiasDespacho = $this->noticiaService->getNoticiasPublicarSiAndAcByLimitAndUnidad($und_id, $limite);
+            foreach ($noticiasDespacho as $key => $noticia) {
                 $noti = new ComunDto();
                 $noti->slug = $noticia->slug;
                 $noti->antetitulo = $noticia->antetitulo;
                 $noti->titulo = $noticia->titulo;
-                $noti->imagen = asset('storage/uploads/'.$noticia->imagen);
+                $noti->imagen = asset('storage/uploads/' . $noticia->imagen);
                 $noti->resumen = $noticia->resumen;
                 $noti->contenido = $noticia->contenido;
                 $noti->fecha = $noticia->fecha;
                 $noti->galeria = new Collection();
-                foreach ($noticia->imagenesNoticia as $key2 =>$imagen){
-                    if ($imagen->estado == 'AC' && $imagen->publicar == 1){
+                foreach ($noticia->imagenesNoticia as $key2 => $imagen) {
+                    if ($imagen->estado == 'AC' && $imagen->publicar == 1) {
                         $imagenNoticia = new ComunDto();
                         $imagenNoticia->titulo = $imagen->titulo;
-                        $imagenNoticia->imagen = asset('storage/uploads/'.$imagen->imagen);
+                        $imagenNoticia->imagen = asset('storage/uploads/' . $imagen->imagen);
                         $noti->galeria->push($imagenNoticia);
                     }
                 }
                 $noti->video = $noticia->link_video;
-                $noti->categorias = explode(',',$noticia->categorias);
-                $noti->palabrasClave = explode(',',$noticia->palabras_clave);
+                $noti->categorias = explode(',', $noticia->categorias);
+                $noti->palabrasClave = explode(',', $noticia->palabras_clave);
                 $comun->data->push($noti);
             }
 
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -239,27 +238,27 @@ class NoticiaControllerApi extends Controller
             $comun->data = new ComunDto();
             $categorias = $this->noticiaService->getAllCategoriasNoticiasByUnidad($und_id);
             $categoriasArray = array();
-            foreach ($categorias as $cate){
-                array_push($categoriasArray,$cate->claves);
+            foreach ($categorias as $cate) {
+                array_push($categoriasArray, $cate->claves);
             }
             $comun->data->categorias = $categoriasArray;
             $palabras = $this->noticiaService->getAllPalabrasClavesNoticiasByUnidad($und_id);
             $palabrasArray = array();
-            foreach ($palabras as $pala){
-                array_push($palabrasArray,$pala->claves);
+            foreach ($palabras as $pala) {
+                array_push($palabrasArray, $pala->claves);
             }
             $comun->data->palabras = $palabrasArray;
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = null;
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
-    public function getAllNoticiasTodasByUnidad($und_id,Request $request)
+    public function getAllNoticiasTodasByUnidad($und_id, Request $request)
     {
         try {
             $unidad = $this->unidadService->getById($und_id);
@@ -268,33 +267,33 @@ class NoticiaControllerApi extends Controller
             $search = '';
             $categoria = '';
             $palabra = '';
-            if ($request->has('limite')){
+            if ($request->has('limite')) {
                 $limite = $request->limite;
             }
-            if ($request->has('orden')){
+            if ($request->has('orden')) {
                 $orden = $request->orden;
             }
-            if ($request->has('search')){
+            if ($request->has('search')) {
                 $search = $request->search;
             }
-            if ($request->has('categoria')){
+            if ($request->has('categoria')) {
                 $categoria = $request->categoria;
             }
-            if ($request->has('palabra')){
+            if ($request->has('palabra')) {
                 $palabra = $request->palabra;
             }
             $comun = new ComunDto();
             $comun->status = true;
             $comun->message = $unidad->nombre;
             $comun->data = new ComunDto();
-            $comun->data = $this->noticiaService->getAllByUnidadAcPublicarSiAndPaginateAndSearchAndSort($und_id,$limite,$search,$orden,$palabra,$categoria);
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            $comun->data = $this->noticiaService->getAllByUnidadAcPublicarSiAndPaginateAndSearchAndSort($und_id, $limite, $search, $orden, $palabra, $categoria);
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = null;
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 

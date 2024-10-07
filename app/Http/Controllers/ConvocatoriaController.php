@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 
@@ -22,24 +23,24 @@ class ConvocatoriaController extends Controller
     public function __construct(
         ConvocatoriaService $convocatoriaService,
         ParametricaService $parametricaService,
-        UnidadService $unidadService)
-    {
+        UnidadService $unidadService
+    ) {
         $this->convocatoriaService = $convocatoriaService;
         $this->parametricaService = $parametricaService;
         $this->unidadService = $unidadService;
         $this->middleware('auth');
     }
 
-    public function index($und_id,Request $request)
+    public function index($und_id, Request $request)
     {
         $searchtype = 1;
         $search = '';
         $sort = 1;
-        $publicar = [0=>'NO',1=>'SI'];
+        $publicar = [0 => 'NO', 1 => 'SI'];
         $unidad = $this->unidadService->getById($und_id);
         $titulo = $unidad->nombre;
-        $lista = $this->convocatoriaService->getAllPaginateBySearchAndSort(10,$und_id);
-        return view('convocatoria.index', compact('lista', 'titulo','und_id','publicar','searchtype', 'search','sort','unidad'));
+        $lista = $this->convocatoriaService->getAllPaginateBySearchAndSort(10, $und_id);
+        return view('convocatoria.index', compact('lista', 'titulo', 'und_id', 'publicar', 'searchtype', 'search', 'sort', 'unidad'));
     }
 
 
@@ -48,13 +49,13 @@ class ConvocatoriaController extends Controller
         $convocatoria = new Convocatoria();
         $convocatoria->con_id = 0;
         $convocatoria->estado = 'AC';
-        return view('convocatoria.createedit',compact('convocatoria','und_id'));
+        return view('convocatoria.createedit', compact('convocatoria', 'und_id'));
     }
 
-    public function edit($con_id,$und_id)
+    public function edit($con_id, $und_id)
     {
         $convocatoria = $this->convocatoriaService->getById($con_id);
-        return view('convocatoria.createedit',compact('convocatoria','und_id','con_id'));
+        return view('convocatoria.createedit', compact('convocatoria', 'und_id', 'con_id'));
     }
 
 
@@ -67,7 +68,7 @@ class ConvocatoriaController extends Controller
         $x = $tamImagen->valor2;
         $y = $tamImagen->valor3;
         $ruta = storage_path('app/public/uploads/');
-        if($request->con_id == 0 ) {
+        if ($request->con_id == 0) {
             $data['publicar'] = 1;
             $data['fecha_registro'] = date('Y-m-d H:i:s');
             $messages = [
@@ -84,7 +85,7 @@ class ConvocatoriaController extends Controller
                 'resumen' => 'required',
                 'contenido' => 'required',
                 'convocante' => 'required',
-                'archivo'=>'required|mimes:pdf,PDF,doc,docx,xls,xlsx|max:4000'
+                'archivo' => 'required|mimes:pdf,PDF,doc,docx,xls,xlsx|max:4000'
             ], $messages);
 
             if ($validator->fails()) {
@@ -95,35 +96,34 @@ class ConvocatoriaController extends Controller
             if ($request->hasFile('imagen')) {
                 $file = $request->imagen;
                 $extencionImagen = $file->extension();
-                $nombreUno = time().''.uniqid().'.'.$extencionImagen;
+                $nombreUno = time() . '' . uniqid() . '.' . $extencionImagen;
                 $data['imagen'] = $nombreUno;
-                $imagenUno =Image::make($file);
-                $imagenUno->resize($x,$y);
-                $imagenUno->save($ruta.$nombreUno,95);
+                $imagenUno = Image::make($file);
+                $imagenUno->resize($x, $y);
+                $imagenUno->save($ruta . $nombreUno, 95);
             }
             if ($request->hasFile('archivo')) {
                 $extension = $request->archivo->extension();
-                $nombreAlterno = time().''.uniqid();
-                $path = $request->archivo->storeAs('public/uploads/',$nombreAlterno.'.'.$extension);
-                $data['archivo'] = $nombreAlterno.'.'.$extension;
+                $nombreAlterno = time() . '' . uniqid();
+                $path = $request->archivo->storeAs('public/uploads/', $nombreAlterno . '.' . $extension);
+                $data['archivo'] = $nombreAlterno . '.' . $extension;
             }
-            $data['fecha_publicacion'] = str_replace('/','-',$data['fecha_publicacion']);
-            $data['fecha_publicacion'] = date('Y-m-d',strtotime($data['fecha_publicacion']));
+            $data['fecha_publicacion'] = str_replace('/', '-', $data['fecha_publicacion']);
+            $data['fecha_publicacion'] = date('Y-m-d', strtotime($data['fecha_publicacion']));
             try {
                 $convocatoria = $this->convocatoriaService->save($data);
                 if (empty($convocatoria)) {
-                    Toastr::warning('No se pudo guardar el video sonido',"");
-                }else{
-                    Toastr::success('Operación completada',"");
-                    return redirect('sisadmin/convocatoria/'.$data['und_id'].'/lista');
-
+                    Toastr::warning('No se pudo guardar el video sonido', "");
+                } else {
+                    Toastr::success('Operación completada', "");
+                    return redirect('sisadmin/convocatoria/' . $data['und_id'] . '/lista');
                 }
             } catch (Exception $e) {
                 Log::error($e->getMessage());
-                Toastr::error('Ocurrio un error al guardar el video sonido',"");
+                Toastr::error('Ocurrio un error al guardar el video sonido', "");
                 return back()->withInput();
             }
-        }else{
+        } else {
             $data['fecha_modificacion'] = date('Y-m-d H:i:s');
             $messages = [
                 'required' => 'El campo :attribute es requerido.',
@@ -149,46 +149,46 @@ class ConvocatoriaController extends Controller
                     'required' => 'El campo :attribute es requerido.',
                 ];
                 $validator = Validator::make($data, [
-                    'archivo'=>'required|mimes:pdf,PDF,doc,docx,xls,xlsx|max:4000'
+                    'archivo' => 'required|mimes:pdf,PDF,doc,docx,xls,xlsx|max:4000'
                 ], $messages);
-                if($validator->fails()) {
+                if ($validator->fails()) {
                     return back()
                         ->withErrors($validator)
                         ->withInput();
                 }
                 $extension = $request->archivo->extension();
-                $nombreAlterno = time().''.uniqid();
-                $path = $request->archivo->storeAs('public/uploads/',$nombreAlterno.'.'.$extension);
-                $data['archivo'] = $nombreAlterno.'.'.$extension;
+                $nombreAlterno = time() . '' . uniqid();
+                $path = $request->archivo->storeAs('public/uploads/', $nombreAlterno . '.' . $extension);
+                $data['archivo'] = $nombreAlterno . '.' . $extension;
             }
             if ($request->hasFile('imagen')) {
-                $messages = [ 'imagen.max' => 'El peso de la imagen no debe ser mayor a 4000 kilobytes'  ];
-                $validator = Validator::make($data, ['imagen' => 'mimes:jpeg,jpg,png,JPEG,JPG,PNG|max:4000' ], $messages);
-                if ($validator->fails()){
+                $messages = ['imagen.max' => 'El peso de la imagen no debe ser mayor a 4000 kilobytes'];
+                $validator = Validator::make($data, ['imagen' => 'mimes:jpeg,jpg,png,JPEG,JPG,PNG|max:4000'], $messages);
+                if ($validator->fails()) {
                     Toastr::warning('No se pudo guardar ningun cambio verifique la imagen', "");
                     return back()->withErrors($validator)->withInput();
                 }
                 $file = $request->imagen;
                 $extencionImagen = $file->extension();
-                $nombreUno = time().''.uniqid().'.'.$extencionImagen;
+                $nombreUno = time() . '' . uniqid() . '.' . $extencionImagen;
                 $data['imagen'] = $nombreUno;
-                $imagenUno =Image::make($file);
-                $imagenUno->resize($x,$y);
-                $imagenUno->save($ruta.$nombreUno,95);
+                $imagenUno = Image::make($file);
+                $imagenUno->resize($x, $y);
+                $imagenUno->save($ruta . $nombreUno, 95);
             }
 
             try {
                 $convocatoria = $this->convocatoriaService->update($data);
                 if (empty($convocatoria)) {
-                    Toastr::warning('No se pudo editar el video sonido',"");
+                    Toastr::warning('No se pudo editar el video sonido', "");
                     return back()->withInput();
-                }else{
-                    Toastr::success('Operación completada',"");
-                    return redirect('sisadmin/convocatoria/'.$data['und_id'].'/lista');
+                } else {
+                    Toastr::success('Operación completada', "");
+                    return redirect('sisadmin/convocatoria/' . $data['und_id'] . '/lista');
                 }
             } catch (Exception $e) {
                 Log::error($e->getMessage());
-                Toastr::error('Ocurrio un error al editar el video sonido',"");
+                Toastr::error('Ocurrio un error al editar el video sonido', "");
                 return back()->withInput();
             }
         }
@@ -202,15 +202,15 @@ class ConvocatoriaController extends Controller
             $data['estado'] = 'EL';
             $convocatoria = $this->convocatoriaService->delete($data);
 
-            if (!empty($convocatoria)){
+            if (!empty($convocatoria)) {
                 return response()->json([
-                    'res'=>true,
-                    'mensaje'=>'Operación completada'
+                    'res' => true,
+                    'mensaje' => 'Operación completada'
                 ]);
-            }else{
+            } else {
                 return response()->json([
-                    'res'=>false,
-                    'mensaje'=>'No se pudo modificar'
+                    'res' => false,
+                    'mensaje' => 'No se pudo modificar'
                 ]);
             }
         } catch (\Exception $e) {
@@ -230,26 +230,24 @@ class ConvocatoriaController extends Controller
             $data['publicar'] = $request->publicar;
             $convocatoria = $this->convocatoriaService->cambiarPublicar($data);
 
-            if (!empty($convocatoria)){
+            if (!empty($convocatoria)) {
                 return response()->json([
-                    'res'=>true,
-                    'mensaje'=>'Operación completada'
+                    'res' => true,
+                    'mensaje' => 'Operación completada'
                 ]);
-            }else{
+            } else {
                 return response()->json([
-                    'res'=>false,
-                    'mensaje'=>'No se pudo modificar'
+                    'res' => false,
+                    'mensaje' => 'No se pudo modificar'
                 ]);
             }
-
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             Log::error($e->getMessage());
             Log::error($e->getTraceAsString());
             return response()->json([
-                'res'=>false,
-                'mensaje'=>'No se pudo modificar'
+                'res' => false,
+                'mensaje' => 'No se pudo modificar'
             ]);
         }
     }
-
 }

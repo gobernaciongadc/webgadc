@@ -30,13 +30,13 @@ class DenunciaControllerApi extends Controller
                 'nombre' => ['required'],
                 'denuncia' => ['required'],
                 'email' => ['required', 'string', 'email:rfc,dns', 'max:255'],
-                'celular' => ['required','integer']
+                'celular' => ['required', 'integer']
             ], $messages);
-            if($validator->fails()) {
+            if ($validator->fails()) {
                 $comun->status = false;
                 $comun->message = $validator->errors()->first();
                 $comun->data = new Collection();
-                return response()->json($comun->toArray(),200);
+                return response()->json($comun->toArray(), 200);
             }
 
             $ipUsuario = $request->ip();
@@ -52,27 +52,26 @@ class DenunciaControllerApi extends Controller
             $data['fecha_hora'] = date('Y-m-d H:i:s');
             $data['celular'] = $celular;
             $data['estado_visto'] = 0;
-            $data['ip_terminal'] = $ipUsuario.'';
+            $data['ip_terminal'] = $ipUsuario . '';
             $data['estado'] = 'AC';
             $denunciaSave = $this->denunciaService->save($data);
-            if (empty($denunciaSave)){
+            if (empty($denunciaSave)) {
                 $comun->status = false;
                 $comun->message = 'No se pudo guardar su denuncia';
                 $comun->data = new Collection();
-                return response()->json($comun->toArray(),200);
-            }else{
+                return response()->json($comun->toArray(), 200);
+            } else {
                 $comun->status = true;
                 $comun->message = 'Denuncia Guardada Correctamente';
                 $comun->data = new ComunDto();
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
-
 }

@@ -114,6 +114,10 @@ Route::group(['prefix' => 'biografia'], function () {
 Route::group(['prefix' => 'multimedia'], function () {
     Route::get('/videosAudios', 'Api\VideoSonidoControllerApi@getVideosAudiosPaginado');
     Route::get('/geleria/{und_id}', 'Api\VideoSonidoControllerApi@getGaleriaPaginadoByUnidad');
+
+
+    // Rutas para semanarios
+    Route::get('/listaSemanarios', 'Api\SemanarioControllerApi@getSemanariosPaginado');
 });
 
 //publicidad
@@ -159,4 +163,28 @@ Route::group(['prefix' => 'denuncia'], function () {
 //preguntas frecuentes
 Route::group(['prefix' => 'preguntasfrecuentes'], function () {
     Route::get('/preguntas', 'Api\PreguntasFrecuentesControllerApi@getAllPreguntas');
+});
+
+Route::group(['prefix' => 'tv'], function () {
+    Route::get('transmisiones', 'Api\TransmisionControllerApi@index');
+});
+
+Route::group(['prefix' => 'radio'], function () {
+    Route::get('radioenlinea', 'Api\RadiotvControllerApi@index');
+});
+
+Route::group(['prefix' => 'modal'], function () {
+    Route::get('modaltv', 'Api\ModaltvControllerApi@index');
+});
+
+Route::group(['prefix' => 'gobernaciontv'], function () {
+    Route::get('gobertv', 'Api\GobernaciontvControllerApi@index');
+});
+
+Route::group(['prefix' => 'jaku'], function () {
+    Route::get('jakucategoria', 'Api\JakutvControllerApi@index');
+});
+
+Route::group(['prefix' => 'gestionjaku'], function () {
+    Route::get('listjaku/{id}', 'Api\GestionjakuControllerApi@show');
 });
