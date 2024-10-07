@@ -18,6 +18,9 @@
   <!-- page css -->
   <link href="./assets/css/pages/file-upload.css" rel="stylesheet">
 
+  <!-- Hambuerguer -->
+  <link href="./assets/css/hamburguer.css" rel="stylesheet">
+
   <!-- You can change the theme colors from here -->
   <!-- <link href="./assets/css/colors/default-dark.css" id="theme" rel="stylesheet"> -->
   <!-- Fuentes para el proyecto web -->
@@ -31,7 +34,7 @@
 
   <link rel="stylesheet" href="./assets/css/colors/blue.css">
 
-<style>:root{--blanco:#ffffff;--oscuro:#212121;--primario:#ED4C67;--primario_oscuro:#353b48;--primario_claro:#fbbb00;--secundario:#A0DEFF;--secundario_oscuro:#5AB2FF;--gris:#757575;--grisClaro:#DFE9F3}body{font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif!important}html{scroll-behavior:smooth!important}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}</style><link rel="stylesheet" href="styles-VBFXZ7DF.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-VBFXZ7DF.css"></noscript></head>
+<style>:root{--blanco:#ffffff;--oscuro:#212121;--primario:#ED4C67;--primario_oscuro:#353b48;--primario_claro:#fbbb00;--secundario:#A0DEFF;--secundario_oscuro:#5AB2FF;--gris:#757575;--grisClaro:#DFE9F3}body{font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif!important}html{scroll-behavior:smooth!important}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}</style><link rel="stylesheet" href="styles-HDVFHNJ7.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-HDVFHNJ7.css"></noscript></head>
 
 <body>
   <app-root></app-root>
@@ -117,6 +120,6 @@
   </script>
 
 
-<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-W5MTUO7L.js" defer></script><script src="main-DM6V25KV.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-W5MTUO7L.js" defer></script><script src="main-GSUQOMX4.js" type="module"></script></body>
 
 </html>
