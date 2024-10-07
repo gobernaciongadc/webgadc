@@ -85,7 +85,38 @@
 
   </script>
 
+  <style>
+    #dialoq-btn img {
+      width: 90px !important;
+      height: 90px !important;
+      /* Centra el ícono horizontalmente */
+    }
 
-<link rel="modulepreload" href="chunk-4U5YRLFA.js"><link rel="modulepreload" href="chunk-Y3DKR44B.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-ATWWKQWL.js" defer></script><script src="main-7WOT6ZAA.js" type="module"></script></body>
+
+    #dialoq-message-bubbles {
+      bottom: 140px !important;
+      right: 20px !important;
+    }
+  </style>
+
+  <script src="https://bots.easy-peasy.ai/chat.min.js" data-chat-url="https://bots.easy-peasy.ai/bot/a6c6da5b-225a-49cd-92be-801bc3264b51" data-btn-position="bottom-right" data-widget-btn-color="rgba(248, 248, 252, 0)" data-widget-icon="https://gobernaciondecochabamba.bo/storage/uploads/JAKU.png" defer>
+
+    </script>
+
+  <script>
+    window.onload = function () {
+      var dialoqBtn = document.getElementById('dialoq-btn');
+      if (dialoqBtn && dialoqBtn.parentNode) {
+        var parentContainer = dialoqBtn.parentNode;
+        console.log(parentContainer);
+        parentContainer.style.bottom = '55px';
+        parentContainer.style.right = '55px';
+        parentContainer.style.border = 'none';
+      }
+    }
+  </script>
+
+
+<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-W5MTUO7L.js" defer></script><script src="main-DM6V25KV.js" type="module"></script></body>
 
 </html>
