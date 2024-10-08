@@ -239,7 +239,7 @@
                             </div><br>
                             @endif
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 d-none">
                             @if ($unidadDespacho->und_id == 0)
                             <label class="col-md-12 col-form-label text-right">Nueva direccion:</label>
                             <div class="form-group row">

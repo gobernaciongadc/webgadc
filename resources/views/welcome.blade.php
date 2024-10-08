@@ -88,6 +88,8 @@
 
   </script>
 
+
+  <!-- Chatbot -->
   <style>
     #dialoq-btn img {
       width: 90px !important;
@@ -98,7 +100,7 @@
 
     #dialoq-message-bubbles {
       bottom: 140px !important;
-      right: 20px !important;
+      right: 50px !important;
     }
   </style>
 
@@ -113,13 +115,13 @@
         var parentContainer = dialoqBtn.parentNode;
         console.log(parentContainer);
         parentContainer.style.bottom = '55px';
-        parentContainer.style.right = '55px';
+        parentContainer.style.right = '80px';
         parentContainer.style.border = 'none';
       }
     }
   </script>
 
 
-<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-ATWWKQWL.js" defer></script><script src="main-6IZT3OML.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-W5MTUO7L.js" defer></script><script src="main-P5WURTB2.js" type="module"></script></body>
 
 </html>
