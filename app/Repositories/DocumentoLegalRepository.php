@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Models\DocumentoLegal;
 
 class DocumentoLegalRepository
@@ -11,15 +12,15 @@ class DocumentoLegalRepository
         $this->documentoLegal = $documentoLegal;
     }
 
-    public function getAllPaginateBySearchAndSort($limit,$und_id)
+    public function getAllPaginateBySearchAndSort($limit, $und_id)
     {
         return $this->documentoLegal->where([
-            ['estado','=','AC'],
-            ['und_id','=',$und_id]
-        ])->orderBy('fecha_aprobacion','desc')->paginate($limit);
+            ['estado', '=', 'AC'],
+            ['und_id', '=', $und_id]
+        ])->orderBy('fecha_aprobacion', 'desc')->paginate($limit);
     }
 
-    public function save($data):?DocumentoLegal
+    public function save($data): ?DocumentoLegal
     {
         $documentoLegal = new $this->documentoLegal;
         $documentoLegal->titulo = $data['titulo'];
@@ -40,13 +41,13 @@ class DocumentoLegalRepository
         return $documentoLegal->fresh();
     }
 
-    public function getById($dol_id):?DocumentoLegal
+    public function getById($dol_id): ?DocumentoLegal
     {
         $documentoLegal = DocumentoLegal::find($dol_id);
         return $documentoLegal;
     }
 
-    public function update($data):?DocumentoLegal
+    public function update($data): ?DocumentoLegal
     {
         $documentoLegal = DocumentoLegal::find($data['dol_id']);
         $documentoLegal->titulo = $data['titulo'];
@@ -55,13 +56,13 @@ class DocumentoLegalRepository
         $documentoLegal->fecha_aprobacion = $data['fecha_aprobacion'];
         $documentoLegal->fecha_promulgacion = $data['fecha_promulgacion'];
         $documentoLegal->numero_documento = $data['numero_documento'];
-        if(isset($data['archivo'])){
+        if (isset($data['archivo'])) {
             $documentoLegal->archivo = $data['archivo'];
         }
-        if(isset($data['fecha_registro'])){
+        if (isset($data['fecha_registro'])) {
             $documentoLegal->fecha_registro = $data['fecha_registro'];
         }
-        if(isset($data['publicar'])){
+        if (isset($data['publicar'])) {
             $documentoLegal->publicar = $data['publicar'];
         }
         $documentoLegal->und_id = $data['und_id'];
@@ -91,91 +92,92 @@ class DocumentoLegalRepository
     public function getDocumentosLegalesPublicarSiAndAcByLimitOfDespacho($limit)
     {
         return $this->documentoLegal->where([
-            ['publicar','=',1],
-            ['estado','=','AC']
+            ['publicar', '=', 1],
+            ['estado', '=', 'AC']
         ])->whereHas('unidad', function ($query) {
             $query->where([
-                ['estado','=','AC']
+                ['estado', '=', 'AC']
             ])->whereHas('tipoUnidad', function ($query2) {
                 $query2->where('tipo', '=', 0);
             });
-        })->orderBy('fecha_promulgacion','desc')->limit($limit)->get();
+        })->orderBy('fecha_promulgacion', 'desc')->limit($limit)->get();
     }
 
-    public function getDocumentosLegalesPublicarSiAndAcByLimitOfDespachoByTipoDocumentoLiteral($limite,$tipoDocumentoLiteral)
+    public function getDocumentosLegalesPublicarSiAndAcByLimitOfDespachoByTipoDocumentoLiteral($limite, $tipoDocumentoLiteral)
     {
         return $this->documentoLegal->where([
-            ['publicar','=',1],
-            ['estado','=','AC']
-        ])->whereHas('tipoDocumentoLegal',function ($query1) use($tipoDocumentoLiteral){
+            ['publicar', '=', 1],
+            ['estado', '=', 'AC']
+        ])->whereHas('tipoDocumentoLegal', function ($query1) use ($tipoDocumentoLiteral) {
             $query1->where([
-               ['estado','=','AC'],
-                ['descripcion','like','%'.$tipoDocumentoLiteral.'%']
+                ['estado', '=', 'AC'],
+                ['descripcion', 'like', '%' . $tipoDocumentoLiteral . '%']
             ]);
         })->whereHas('unidad', function ($query) {
             $query->where([
-                ['estado','=','AC']
+                ['estado', '=', 'AC']
             ])->whereHas('tipoUnidad', function ($query2) {
                 $query2->where('tipo', '=', 0);
             });
-        })->orderBy('fecha_promulgacion','desc')->limit($limite)->get();
+        })->orderBy('fecha_promulgacion', 'desc')->limit($limite)->get();
     }
 
-    public function getDocumentosLegalesPublicarSiAndAcOfDespachoPaginadoByTipoDocumento($limite,$orden,$search,$tipo)
+    public function getDocumentosLegalesPublicarSiAndAcOfDespachoPaginadoByTipoDocumento($limite, $orden, $search, $tipo)
     {
+
         $ruta = asset('storage/uploads/');
         $campoOrden = 'fecha_promulgacion';
         $maneraOrden = 'desc';
         $whereRaw = ' true ';
         $whereRawTipo = ' true ';
-        if (!empty($search)){
-            $whereRaw = " UPPER(titulo) like '%".strtoupper($search)."%' ";
+        if (!empty($search)) {
+            // $whereRaw = " UPPER(titulo) like '%".strtoupper($search)."%' ";
+            $whereRaw = " (UPPER(titulo) like '%" . strtoupper($search) . "%' OR UPPER(resumen) like '%" . strtoupper($search) . "%' )";
         }
-        if (!empty($tipo)){
+        if (!empty($tipo)) {
             //$whereRawTipo = " UPPER(descripcion) like '%".strtoupper($tipo)."%' ";
             $whereRawTipo = " tdl_id = $tipo";
         }
         return $this->documentoLegal->whereRaw($whereRaw)->where([
-            ['publicar','=',1],
-            ['estado','=','AC']
-        ])->whereHas('tipoDocumentoLegal',function ($query1) use($whereRawTipo){
+            ['publicar', '=', 1],
+            ['estado', '=', 'AC']
+        ])->whereHas('tipoDocumentoLegal', function ($query1) use ($whereRawTipo) {
             $query1->where([
-                ['estado','=','AC']
+                ['estado', '=', 'AC']
             ])->whereRaw($whereRawTipo);
         })->whereHas('unidad', function ($query) {
             $query->where([
-                ['estado','=','AC']
+                ['estado', '=', 'AC']
             ])->whereHas('tipoUnidad', function ($query2) {
                 $query2->where('tipo', '=', 0);
             });
         })->selectRaw(" titulo,resumen,contenido,'$tipo' as tipo,to_char(fecha_aprobacion,'DD/MM/YYYY') as fechaaprobacion,to_char(fecha_promulgacion,'DD/MM/YYYY') as fechapromulgacion,numero_documento as numerodocumento,CONCAT('$ruta','/',COALESCE(archivo,'')) as archivo ")
-            ->orderBy($campoOrden,$maneraOrden)->paginate($limite);
+            ->orderBy($campoOrden, $maneraOrden)->paginate($limite);
     }
 
-    public function getDocumentosLegalesPublicarSiAndAcOfUnidadPaginadoByTipoDocumento($und_id,$limite,$orden,$search,$tipo)
+    public function getDocumentosLegalesPublicarSiAndAcOfUnidadPaginadoByTipoDocumento($und_id, $limite, $orden, $search, $tipo)
     {
         $ruta = asset('storage/uploads/');
         $campoOrden = 'fecha_promulgacion';
         $maneraOrden = 'desc';
         $whereRaw = ' true ';
         $whereRawTipo = ' true ';
-        if (!empty($search)){
-            $whereRaw = " UPPER(titulo) like '%".strtoupper($search)."%' ";
+        if (!empty($search)) {
+            $whereRaw = " UPPER(titulo) like '%" . strtoupper($search) . "%' ";
         }
-        if (!empty($tipo)){
+        if (!empty($tipo)) {
             //$whereRawTipo = " UPPER(descripcion) like '%".strtoupper($tipo)."%' ";
             $whereRawTipo = " tdl_id = $tipo";
         }
         return $this->documentoLegal->whereRaw($whereRaw)->where([
-            ['publicar','=',1],
-            ['estado','=','AC'],
-            ['und_id','=',$und_id]
-        ])->whereHas('tipoDocumentoLegal',function ($query1) use($whereRawTipo){
+            ['publicar', '=', 1],
+            ['estado', '=', 'AC'],
+            ['und_id', '=', $und_id]
+        ])->whereHas('tipoDocumentoLegal', function ($query1) use ($whereRawTipo) {
             $query1->where([
-                ['estado','=','AC']
+                ['estado', '=', 'AC']
             ])->whereRaw($whereRawTipo);
         })->selectRaw(" titulo,resumen,contenido,'$tipo' as tipo,to_char(fecha_aprobacion,'DD/MM/YYYY') as fechaaprobacion,to_char(fecha_promulgacion,'DD/MM/YYYY') as fechapromulgacion,numero_documento as numerodocumento,CONCAT('$ruta','/',COALESCE(archivo,'')) as archivo ")
-            ->orderBy($campoOrden,$maneraOrden)->paginate($limite);
+            ->orderBy($campoOrden, $maneraOrden)->paginate($limite);
     }
-
 }

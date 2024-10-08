@@ -286,6 +286,9 @@
                         <!-- Modal -->
                         <li><a class="dropdown-item" href="{{ route('modaltv.index') }}">Modal de inicio</a></li>
 
+                        <!-- Interes ciudadano -->
+                        <li><a class="dropdown-item" href="{{ route('ciudadanotv.index') }}">Link de interes ciudadano </a></li>
+
                         <!-- Secretarias -->
                         <li><a class="dropdown-item @if(!verificarAcceso(75)) disabled @endif" href="{{url('sisadmin/unidadsecretaria')}}">Secretarias</a></li>
                         <li><a class="dropdown-item @if(!verificarAcceso(120)) disabled @endif" href="{{url('sisadmin/biografia')}}">Biografias</a></li>

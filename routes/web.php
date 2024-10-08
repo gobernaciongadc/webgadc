@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriatvController;
+use App\Http\Controllers\CiudadanotvController;
 use App\Http\Controllers\ConSemanarioController;
 use App\Http\Controllers\GestionjakutvController;
 use App\Http\Controllers\GobernaciontvController;
@@ -481,6 +482,15 @@ Route::group(['prefix' => 'sisadmin/'], function () {
     Route::get('modaltv/{transmision}/edit', [ModaltvController::class, 'edit'])->name('modaltv.edit');
     Route::put('modaltv/{transmision}', [ModaltvController::class, 'update'])->name('modaltv.update');
     Route::delete('modaltv/{transmision}', [ModaltvController::class, 'destroy'])->name('modaltv.destroy');
+
+
+    // Servicio al ciudadano
+    Route::get('ciudadanotv', [CiudadanotvController::class, 'index'])->name('ciudadanotv.index');
+    Route::get('ciudadanotv/create', [CiudadanotvController::class, 'create'])->name('ciudadanotv.create');
+    Route::post('ciudadanotv', [CiudadanotvController::class, 'store'])->name('ciudadanotv.store');
+    Route::get('ciudadanotv/{transmision}/edit', [CiudadanotvController::class, 'edit'])->name('ciudadanotv.edit');
+    Route::put('ciudadanotv/{transmision}', [CiudadanotvController::class, 'update'])->name('ciudadanotv.update');
+    Route::delete('ciudadanotv/{transmision}', [CiudadanotvController::class, 'destroy'])->name('ciudadanotv.destroy');
 });
 
 Route::get('/{any}', function () {

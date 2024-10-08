@@ -188,3 +188,7 @@ Route::group(['prefix' => 'jaku'], function () {
 Route::group(['prefix' => 'gestionjaku'], function () {
     Route::get('listjaku/{id}', 'Api\GestionjakuControllerApi@show');
 });
+
+Route::group(['prefix' => 'interes'], function () {
+    Route::get('ciudadano', 'Api\CiudadanotvControllerApi@index');
+});
