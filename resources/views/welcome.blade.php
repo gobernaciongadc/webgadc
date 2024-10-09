@@ -3,7 +3,7 @@
 
 <head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta charset="utf-8">
-  <title>Gobierno Autónomo Municipal de Cliza</title>
+  <title>Gobierno Autónomo Departamental de Cochabamba</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicon icon -->
@@ -122,6 +122,6 @@
   </script>
 
 
-<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-W5MTUO7L.js" defer></script><script src="main-GAZDV4XL.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-ATWWKQWL.js" defer></script><script src="main-GAZDV4XL.js" type="module"></script></body>
 
 </html>
