@@ -136,7 +136,7 @@ class VideoSonidoRepository
     // Modificaciones 2024
     public function getAllSemanariosModeloPaginateAndSort($limite, $orden)
     {
-        $campoOrden = 'fecha_publicacion';
+        $campoOrden = 'created_at';
         $maneraOrden = 'desc';
 
         // Recuperar seminarios junto con sus imágenes, paginados y ordenados

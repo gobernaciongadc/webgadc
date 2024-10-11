@@ -88,7 +88,7 @@ class UnidadSecretariaController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
+        // dd($request->all());
 
         $tamImagenBanner = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-23");
         $tamImagenicono = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-12");
@@ -179,16 +179,18 @@ class UnidadSecretariaController extends Controller
                 $imagenIcono->save($ruta . $nombreDireccion, 95);
             }
             if ($request->hasFile('organigrama')) {
+
                 $file4 = $request->organigrama;
-                $imagen = getimagesize($file4);
+                $imagen = getimagesize($file4); // Obtenemos las dimensiones originales, si es necesario usarlas
                 $extencionImagen4 = $file4->extension();
                 $nombreDireccion = time() . '' . uniqid() . '.' . $extencionImagen4;
                 $data['organigrama'] = $nombreDireccion;
+
+                // Crea una instancia de la imagen usando Intervention Image, pero no la redimensionamos
                 $imagenIcono = Image::make($file4);
-                $ancho = $xoganigra;
-                $alto = $imagen[1];
-                $imagenIcono->resize($ancho, $alto);
-                $imagenIcono->save($ruta . $nombreDireccion, 95);
+
+                // Guarda la imagen sin cambiar su tamaño
+                $imagenIcono->save($ruta . $nombreDireccion, 95);  // 95 es la calidad de la imagen, puedes ajustarla si lo necesitas
             }
 
             try {
@@ -291,22 +293,24 @@ class UnidadSecretariaController extends Controller
             if ($request->hasFile('organigrama')) {
                 $messages = ['organigrama.max' => 'El peso de la imagen organigrama no debe ser mayor a 4000 kilobytes'];
                 $validator = Validator::make($data, ['organigrama' => 'mimes:jpg,JPG,jpeg,JPEG|max:4000'], $messages);
+
                 if ($validator->fails()) {
                     Toastr::warning('No se pudo guardar ningun cambio verifique la imagen organigrama', "");
                     return back()->withErrors($validator)->withInput();
                 }
 
                 $file4 = $request->organigrama;
-                $imagen = getimagesize($file4);
                 $extencionImagen4 = $file4->extension();
                 $nombreDireccion = time() . '' . uniqid() . '.' . $extencionImagen4;
                 $data['organigrama'] = $nombreDireccion;
+
+                // Crea una instancia de la imagen usando Intervention Image sin redimensionar
                 $imagenIcono = Image::make($file4);
-                $ancho = $xoganigra;
-                $alto = $imagen[1];
-                $imagenIcono->resize($ancho, $alto);
-                $imagenIcono->save($ruta . $nombreDireccion, 95);
+
+                // Guarda la imagen sin cambiar su tamaño
+                $imagenIcono->save($ruta . $nombreDireccion, 95); // 95 es la calidad de la imagen
             }
+
 
             try {
                 $unidad = $this->unidadService->updateUnidad($data);

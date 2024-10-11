@@ -52,7 +52,6 @@ Con Semanarios
 
                                     <td>
                                         <form action="{{ route('con-semanarios.destroy', $conSemanario->id) }}" method="POST">
-                                            <a class="btn btn-sm btn-primary " href="{{ route('con-semanarios.show', $conSemanario->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
                                             <a class="btn btn-sm btn-success" href="{{ route('con-semanarios.edit', $conSemanario->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                             @csrf
                                             @method('DELETE')

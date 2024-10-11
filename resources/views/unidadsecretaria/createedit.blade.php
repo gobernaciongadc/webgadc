@@ -79,7 +79,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group row mt-3">
+                            <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-right">Nombres y apellidos del secretario departamental:</label>
                                 <div class="col-md-8">
                                     <input type="text" value="{{ old('lugar',$unidadSecretaria->lugar)}}" class="form-control form-control-sm" name="lugar" id="lugar">
@@ -99,10 +99,24 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <textarea rows="2" cols="40" type="text" class="form-control form-control-sm" name="mision" id="mision" hidden>{{ old('mision',$unidadSecretaria->mision) }}</textarea>
-                            <textarea rows="2" cols="40" type="text" class="form-control form-control-sm" name="vision" id="vision" hidden>{{ old('vision',$unidadSecretaria->vision) }}</textarea>
-
+                            <div class="form-group row d-none">
+                                <label class="col-md-3 col-form-label text-right">Mision:</label>
+                                <div class="col-md-9">
+                                    <textarea rows="2" cols="40" type="text" class="form-control form-control-sm" name="mision" id="mision">{{ old('mision',$unidadSecretaria->mision) }}</textarea>
+                                    @error('mision')
+                                    <p class="form-text text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row d-none">
+                                <label class="col-md-3 col-form-label text-right">Vision:</label>
+                                <div class="col-md-9">
+                                    <textarea rows="2" cols="40" type="text" class="form-control form-control-sm" name="vision" id="vision">{{ old('vision',$unidadSecretaria->vision) }}</textarea>
+                                    @error('vision')
+                                    <p class="form-text text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label text-right">Objetivo*:</label>
                                 <div class="col-md-9">
@@ -291,34 +305,34 @@
 
                         <!-- Organigrama -->
                         <div class="col-md-4">
-                            @if ($unidadSecretaria->und_id == 0)
-                            <label class="col-md-12 col-form-label">Nuevo Organigrama*:</label>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <input type="file" class="form-control-file form-control-sm" id="organigrama" name="organigrama" accept="image/JPG, image/jpg, image/jpeg, image/JPEG">
-                                    @error('organigrama')
-                                    <p class="form-text text-danger">{{ $message }}</p>
-                                    @enderror
-                                    <p style="font-size:12px"> La imagen debe de ser en formato jpg o jpeg menor a 4Mb </p>
-                                </div>
-                            </div><br>
-                            @else
-                            {{
-                                          Html::image(asset('storage/uploads/'.$unidadSecretaria->organigrama), 'Sin Imagen', array('id'=>'organigrama', 'class' =>'img-thumbnail','width'=>'600'))
-                                    }}
-                            <label class="col-md-12 col-form-label">Nueva Imagen Organigrama:</label>
-                            <div class="form-group row">
-
-                                <div class="col-md-12">
-                                    <input type="file" class="form-control-file form-control-sm" id="organigrama" name="organigrama" accept="image/JPG, image/jpg, image/jpeg, image/JPEG">
-                                    @error('organigrama')
-                                    <p class="form-text text-danger">{{ $message }}</p>
-                                    @enderror
-                                    <p style="font-size:12px"> La imagen debe de ser (800px ancho y mínimo 1200px hasta un máximo de 2000px alto) en formato jpg o jpeg menor a 4Mb </p>
-                                </div>
-                            </div><br>
-                            @endif
+							@if ($unidadSecretaria->und_id == 0)
+							<label class="col-md-12 col-form-label">Nuevo Organigrama*:</label>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<input type="file" class="form-control-file form-control-sm" id="organigrama" name="organigrama" accept="image/JPG, image/jpg, image/jpeg, image/JPEG">
+									@error('organigrama')
+									<p class="form-text text-danger">{{ $message }}</p>
+									@enderror
+									<p style="font-size:12px"> La imagen debe de ser  en formato jpg o jpeg menor a 4Mb </p>
+								</div>
+							</div><br>
+							@else
+							{{
+								Html::image(asset('storage/uploads/'.$unidadSecretaria->organigrama), 'Sin Imagen', array('id'=>'organigrama', 'style' => 'max-width: 100%; height: auto; object-fit: contain;'))
+							}}
+							<label class="col-md-12 col-form-label">Nueva Imagen Organigrama:</label>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<input type="file" class="form-control-file form-control-sm" id="organigrama" name="organigrama" accept="image/JPG, image/jpg, image/jpeg, image/JPEG">
+									@error('organigrama')
+									<p class="form-text text-danger">{{ $message }}</p>
+									@enderror
+									<p style="font-size:12px"> La imagen debe de ser en formato jpg o jpeg menor a 4Mb </p>
+								</div>
+							</div><br>
+							@endif
                         </div>
+
 
 
 
@@ -410,22 +424,11 @@
 <script type="text/javascript" src="{{asset('js/ol.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/proj4.js')}}"></script>
 <script type="text/javascript">
-    var latitud = {
-        {
-            $unidadSecretaria - > latitud
-        }
-    };
-    var longitud = {
-        {
-            $unidadSecretaria - > longitud
-        }
-    };
-    var zoom = {
-        {
-            $zoom ?? 18
-        }
-    };
 
+        var latitud = {{$unidadSecretaria->latitud}};
+        var longitud = {{$unidadSecretaria->longitud}};
+        var zoom = {{$zoom ?? 18}};
+		
     $(document).ready(function() {
         validarInputEntero("#celular_wp");
         $('#myTab a[href="#panel-uno"]').tab('show');
