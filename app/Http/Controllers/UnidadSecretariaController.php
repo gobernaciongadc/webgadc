@@ -87,6 +87,9 @@ class UnidadSecretariaController extends Controller
 
     public function store(Request $request)
     {
+
+        dd($request->all());
+
         $tamImagenBanner = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-23");
         $tamImagenicono = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-12");
         $tamImagendireccion = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-8");
