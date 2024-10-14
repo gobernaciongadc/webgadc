@@ -178,7 +178,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 d-none">
                         <div class="row justify-content-center" style="margin-top: 30px;">
                             <h5>Marque en el mapa la dirección de la Unidad</h5>
                         </div><br>

@@ -179,7 +179,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 d-none">
                         <div class="row justify-content-center" style="margin-top: 30px;">
                             <h5>Marque en el mapa la Ubicacion de la Unidad</h5>
                         </div><br>
@@ -381,21 +381,11 @@
 <script type="text/javascript" src="{{asset('js/ol.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/proj4.js')}}"></script>
 <script type="text/javascript">
-    var latitud = {
-        {
-            $unidadDespacho - > latitud
-        }
-    };
-    var longitud = {
-        {
-            $unidadDespacho - > longitud
-        }
-    };
-    var zoom = {
-        {
-            $zoom ?? 16
-        }
-    };
+
+	
+	    var latitud = {{$unidadDespacho->latitud}};
+        var longitud = {{$unidadDespacho->longitud}};
+        var zoom = {{$zoom ?? 16}};
 
     $(document).ready(function() {
         $('#myTab a[href="#panel-uno"]').tab('show');
