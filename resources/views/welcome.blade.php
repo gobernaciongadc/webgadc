@@ -36,10 +36,29 @@
 
 <style>:root{--blanco:#ffffff;--oscuro:#212121;--primario:#ED4C67;--primario_oscuro:#353b48;--primario_claro:#fbbb00;--secundario:#A0DEFF;--secundario_oscuro:#5AB2FF;--gris:#757575;--grisClaro:#DFE9F3}body{font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif!important}html{scroll-behavior:smooth!important}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}</style><link rel="stylesheet" href="styles-HDVFHNJ7.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-HDVFHNJ7.css"></noscript></head>
 
-<body>
+<body class="position-relative">
   <app-root></app-root>
 
 
+
+  <style>
+    #caja1 {
+      position: fixed;
+      bottom: 90px;
+      /* Ajusta estos valores según dónde quieras que se posicione */
+      right: 120px;
+      /* Puedes usar también right o bottom si lo prefieres */
+      width: 200px;
+      height: 20px;
+      background: white;
+      z-index: 999999999;
+      display: none;
+    }
+  </style>
+
+  <div id="caja1">
+
+  </div>
 
   <!-- All Jquery -->
   <!-- ============================================================== -->
@@ -105,7 +124,6 @@
   </style>
 
   <script src="https://bots.easy-peasy.ai/chat.min.js" data-chat-url="https://bots.easy-peasy.ai/bot/a6c6da5b-225a-49cd-92be-801bc3264b51" data-btn-position="bottom-right" data-widget-btn-color="rgba(248, 248, 252, 0)" data-widget-icon="https://gobernaciondecochabamba.bo/storage/uploads/JAKU.png" defer>
-
     </script>
 
   <script>
@@ -117,11 +135,19 @@
         parentContainer.style.bottom = '55px';
         parentContainer.style.right = '80px';
         parentContainer.style.border = 'none';
+
+        // Agregamos un event listener para el clic
+        dialoqBtn.addEventListener('click', function () {
+          console.log('El botón fue clickeado');
+          const blanco = document.querySelector('#caja1');
+          blanco.style.display = 'block';
+
+        });
       }
     }
   </script>
 
 
-<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-W5MTUO7L.js" defer></script><script src="main-ZFUWP756.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-ATWWKQWL.js" defer></script><script src="main-J7DWRMZR.js" type="module"></script></body>
 
 </html>
