@@ -10,5 +10,5 @@ class Ciudadanotv extends Model
     protected $table = 'ciudadanotv';
 
     // Definir los campos que pueden ser llenados masivamente
-    protected $fillable = ['url_documento', 'descripcion', 'estado'];
+    protected $fillable = ['url_documento', 'imagen', 'descripcion', 'estado'];
 }

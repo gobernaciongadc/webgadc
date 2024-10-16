@@ -118,6 +118,7 @@ updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW()
 CREATE TABLE ciudadanotv (
 id SERIAL PRIMARY KEY,
 url_documento VARCHAR(255) NOT NULL,
+imagen VARCHAR(255) NOT NULL,
 descripcion TEXT,
 estado estado_enum NOT NULL DEFAULT 'live',
 created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
