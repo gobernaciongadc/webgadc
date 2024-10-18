@@ -44,21 +44,36 @@
   <style>
     #caja1 {
       position: fixed;
-      bottom: 90px;
+      bottom: 10px;
       /* Ajusta estos valores según dónde quieras que se posicione */
-      right: 120px;
+      right: 10px;
       /* Puedes usar también right o bottom si lo prefieres */
-      width: 200px;
+      width: 500px;
       height: 20px;
       background: white;
       z-index: 999999999;
       display: none;
     }
+
+    @media(min-width: 768px) {
+      #caja1 {
+        position: fixed;
+        bottom: 90px;
+        /* Ajusta estos valores según dónde quieras que se posicione */
+        right: 120px;
+        /* Puedes usar también right o bottom si lo prefieres */
+        width: 200px;
+        height: 20px;
+        background: white;
+        z-index: 999999999;
+        display: none;
+      }
+    }
   </style>
 
-  <!-- <div id="caja1">
-
-  </div> -->
+  <div id="caja1">
+    <a href="https://easy-peasy.ai/chatbots" hidden></a>
+  </div>
 
   <!-- All Jquery -->
   <!-- ============================================================== -->
@@ -123,31 +138,57 @@
     }
   </style>
 
-  <script src="https://bots.easy-peasy.ai/chat.min.js" data-chat-url="https://bots.easy-peasy.ai/bot/a6c6da5b-225a-49cd-92be-801bc3264b51" data-btn-position="bottom-right" data-widget-btn-color="rgba(248, 248, 252, 0)" data-widget-icon="https://gobernaciondecochabamba.bo/storage/uploads/JAKU.png" defer>
+  <script src="https://bots.easy-peasy.ai/chat.min.js" data-chat-url="https://bots.easy-peasy.ai/bot/535acd64-3076-409b-b15d-f51c78246b69" data-btn-position="bottom-right" data-widget-btn-color="rgba(248, 248, 252, 0)" data-widget-icon="https://gobernaciondecochabamba.bo/storage/uploads/JAKU.png" defer>
     </script>
 
   <script>
+    let cont = 1;
     window.onload = function () {
       var dialoqBtn = document.getElementById('dialoq-btn');
-      if (dialoqBtn && dialoqBtn.parentNode) {
+
+      if (dialoqBtn) {
         var parentContainer = dialoqBtn.parentNode;
-        console.log(parentContainer);
-        parentContainer.style.bottom = '55px';
-        parentContainer.style.right = '80px';
-        parentContainer.style.border = 'none';
+        if (parentContainer) {
+          parentContainer.style.bottom = '75px';
+          parentContainer.style.right = '80px';
+          parentContainer.style.border = 'none';
 
-        // Agregamos un event listener para el clic
-        dialoqBtn.addEventListener('click', function () {
-          console.log('El botón fue clickeado');
-          const blanco = document.querySelector('#caja1');
-          blanco.style.display = 'block';
+          // Event listener para el clic
+          dialoqBtn.addEventListener('click', function () {
+            const blanco = document.querySelector('#caja1');
+            blanco.style.display = 'block';
 
-        });
+            // Inicializamos el MutationObserver para monitorear los cambios en el DOM
+            const observer = new MutationObserver(function (mutations) {
+              mutations.forEach(function (mutation) {
+                const link = document.querySelector('a[href="https://easy-peasy.ai/chatbots"]');
+                if (link) {
+
+                  const div = link.parentElement;
+                  console.log(div);  // Aquí puedes realizar las acciones con el div
+                  blanco.style.display = 'none';
+                  observer.disconnect();  // Detenemos el observador una vez encontrado el enlace
+                } else {
+                  console.log('Enlace no encontrado aún');
+                }
+              });
+            });
+
+            // Observamos el cuerpo del documento para detectar cualquier cambio
+            observer.observe(document.body, { childList: true, subtree: true });
+          });
+        } else {
+          console.error("Parent container no encontrado");
+        }
+      } else {
+        console.error("Botón del chatbot no encontrado");
       }
     }
+
+
   </script>
 
 
-<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-ATWWKQWL.js" defer></script><script src="main-5GLIMGTA.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-RL2BN6W5.js"><link rel="modulepreload" href="chunk-EYRS5L3E.js"><script src="polyfills-6EAL64PA.js" type="module"></script><script src="scripts-ATWWKQWL.js" defer></script><script src="main-FYVSRDSS.js" type="module"></script></body>
 
 </html>
