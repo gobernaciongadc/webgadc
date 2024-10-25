@@ -124,3 +124,14 @@ estado estado_enum NOT NULL DEFAULT 'live',
 created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
 updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW()
 );
+
+<!-- InteresTV -->
+
+CREATE TABLE interestv (
+id SERIAL PRIMARY KEY,
+imagen VARCHAR(255) NOT NULL,
+descripcion TEXT,
+estado estado_enum NOT NULL DEFAULT 'off',
+created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
+updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW()
+);

@@ -191,4 +191,5 @@ Route::group(['prefix' => 'gestionjaku'], function () {
 
 Route::group(['prefix' => 'interes'], function () {
     Route::get('ciudadano', 'Api\CiudadanotvControllerApi@index');
+    Route::get('detuinteres', 'Api\InterestvControllerApi@index');
 });

@@ -24,31 +24,19 @@ class CiudadanotvController extends Controller
 
     public function store(Request $request)
     {
-
-
-
         $request->validate([
             'url_documento' => 'required', // Validación de imagen
-            'imagen_ciudadano' => 'required|image|mimes:jpeg,png,jpg,gif', // Validación de imagen
+            'imagen_ciudadano' => 'required', // icono
             'descripcion' => 'required',
             'estado' => 'required',
         ]);
-
-        // Manejo de subida de archivos
-        if ($request->hasFile('imagen_ciudadano')) {
-            $fileImagen = $request->file('imagen_ciudadano');
-            $nombreImagen = time() . '.' . $fileImagen->getClientOriginalExtension();
-            $fileImagen->storeAs('public/uploads', $nombreImagen); // Guarda el archivo en storage/app/public/uploads
-        } else {
-            $nombreImagen = null;
-        }
 
         // dd($nombreImagen);
 
         // Crear un nuevo registro con los datos
         Ciudadanotv::create([
             'url_documento' => $request->input('url_documento'),
-            'imagen' => $nombreImagen,
+            'imagen' => $request->input('imagen_ciudadano'),
             'descripcion' => $request->input('descripcion'),
             'estado' => $request->input('estado'),
         ]);
@@ -56,7 +44,6 @@ class CiudadanotvController extends Controller
         return redirect()->route('ciudadanotv.index')
             ->with('success', 'Datos creados exitosamente.');
     }
-
 
     public function edit($id)
     {
@@ -75,32 +62,15 @@ class CiudadanotvController extends Controller
         // dd($request->all());
         $request->validate([
             'url_documento' => 'required',
-            'imagen_ciudadano' => 'nullable|image|mimes:jpeg,png,jpg,gif', // Validación de imagen
+            'imagen_ciudadano' => 'nullable', // Validación de icono
             'descripcion' => 'required',
             'estado' => 'required'
         ]);
 
-
-        // Manejo de actualización de archivo
-        if ($request->hasFile('imagen_ciudadano')) {
-            $fileImagen = $request->file('imagen_ciudadano');
-            $nombreImagen = time() . '.' . $fileImagen->getClientOriginalExtension();
-            $fileImagen->storeAs('public/uploads', $nombreImagen);
-
-            // Eliminar el archivo anterior si es necesario
-            if ($gobernaciontv->imagen) {
-                Storage::delete('public/uploads/' . $gobernaciontv->imagen);
-            }
-
-            // Actualizar con el nuevo archivo
-            $gobernaciontv->imagen = $nombreImagen;
-        }
-
-
         // Actualizar otros campos
         $gobernaciontv->update([
             'url_documento' => $request->input('url_documento'),
-            'imagen' => $gobernaciontv->imagen,
+            'imagen' => $request->input('imagen_ciudadano'),
             'descripcion' => $request->input('descripcion'),
             'estado' => $request->input('estado')
         ]);

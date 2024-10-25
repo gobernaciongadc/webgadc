@@ -28,6 +28,8 @@
     <link href="{{ asset('css/bootstrap-datepicker3.min.css') }}" rel="stylesheet" type='text/css'>
     <link href="{{ asset('css/customcombobox.css') }}" rel="stylesheet" type='text/css'>
     <link href="{{ asset('css/datatables.css') }}" rel="stylesheet" type='text/css'>
+    <link href="{{ asset('assets/css/icons/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type='text/css'>
+
 
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 
@@ -244,7 +246,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                         @if(Auth::user()->unidad->tipoUnidad->tipo == 0)
                         <li><a class="dropdown-item @if(!verificarAcceso(1)) disabled @endif" href="{{url('sisadmin/unidaddespacho/editar/'.Auth::user()->und_id)}}">Datos generales</a></li>
-                        <li><a class="dropdown-item @if(!verificarAcceso(2)) disabled @endif" href="{{url('sisadmin/imagenunidadgaleria/'.Auth::user()->und_id).'/unidaddespacho'}}">De tu interes</a></li>
+                        <li><a class="dropdown-item @if(!verificarAcceso(2)) disabled @endif" href="{{url('sisadmin/imagenunidadgaleria/'.Auth::user()->und_id).'/unidaddespacho'}}">Campañas</a></li>
                         @elseif(Auth::user()->unidad->tipoUnidad->tipo == 1)
                         <li><a class="dropdown-item @if(!verificarAcceso(1)) disabled @endif" href="{{url('sisadmin/unidadsecretaria/editar/'.Auth::user()->und_id)}}">Mi Unidad</a></li>
                         <li><a class="dropdown-item @if(!verificarAcceso(2)) disabled @endif" href="{{url('sisadmin/imagenunidadgaleria/'.Auth::user()->und_id).'/unidadsecretaria'}}">Galeria de Imagenes</a></li>
@@ -286,8 +288,11 @@
                         <!-- Modal -->
                         <li><a class="dropdown-item" href="{{ route('modaltv.index') }}">Modal de inicio</a></li>
 
+                        <!-- Servicio al ciudadano -->
+                        <li><a class="dropdown-item" href="{{ route('ciudadanotv.index') }}">Servicio al ciudadano</a></li>
+
                         <!-- Interes ciudadano -->
-                        <li><a class="dropdown-item" href="{{ route('ciudadanotv.index') }}">Link de interes ciudadano </a></li>
+                        <li><a class="dropdown-item" href="{{ route('interestv.index') }}">De tu interes</a></li>
 
                         <!-- Secretarias -->
                         <li><a class="dropdown-item @if(!verificarAcceso(75)) disabled @endif" href="{{url('sisadmin/unidadsecretaria')}}">Secretarias</a></li>

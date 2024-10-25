@@ -5,10 +5,12 @@ use App\Http\Controllers\CiudadanotvController;
 use App\Http\Controllers\ConSemanarioController;
 use App\Http\Controllers\GestionjakutvController;
 use App\Http\Controllers\GobernaciontvController;
+use App\Http\Controllers\InterestvController;
 use App\Http\Controllers\JakutvController;
 use App\Http\Controllers\ModaltvController;
 use App\Http\Controllers\RadiotvController;
 use App\Http\Controllers\TransmisionController;
+use App\Models\Interestv;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -491,6 +493,14 @@ Route::group(['prefix' => 'sisadmin/'], function () {
     Route::get('ciudadanotv/{transmision}/edit', [CiudadanotvController::class, 'edit'])->name('ciudadanotv.edit');
     Route::put('ciudadanotv/{transmision}', [CiudadanotvController::class, 'update'])->name('ciudadanotv.update');
     Route::delete('ciudadanotv/{transmision}', [CiudadanotvController::class, 'destroy'])->name('ciudadanotv.destroy');
+
+    // De tu interes
+    Route::get('interestv', [InterestvController::class, 'index'])->name('interestv.index');
+    Route::get('interestv/create', [InterestvController::class, 'create'])->name('interestv.create');
+    Route::post('interestv', [InterestvController::class, 'store'])->name('interestv.store');
+    Route::get('interestv/{transmision}/edit', [InterestvController::class, 'edit'])->name('interestv.edit');
+    Route::put('interestv/{transmision}', [InterestvController::class, 'update'])->name('interestv.update');
+    Route::delete('interestv/{transmision}', [InterestvController::class, 'destroy'])->name('interestv.destroy');
 });
 
 Route::get('/{any}', function () {
