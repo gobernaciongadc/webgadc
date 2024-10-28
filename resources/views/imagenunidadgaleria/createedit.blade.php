@@ -19,7 +19,7 @@
         @if ( $imagenUnidadGaleria->iug_id == 0)
         <h3 align="center">Nueva Imagen galeria</h3>
         @else
-        <h3 align="center">Editar Imagen galeria</h3>
+        <h3 align="center">Editar Imagen Campaña</h3>
         @endif
         <br>
         <form class="form-horizontal" id="formulario" autocomplete="off" method="POST" enctype="multipart/form-data" action="{{ url('sisadmin/imagenunidadgaleria/store') }}">
@@ -56,7 +56,7 @@
                     @error('imagen')
                     <p class="form-text text-danger">{{ $message }}</p>
                     @enderror
-                    <p style="font-size:12px"> La imagen debe ser de 1110 x 450 pixeles y debe de ser en formato jpeg o png y menor de 4Mb</p>
+                    <p style="font-size:12px"> La imagen debe ser de 1920 x 1040 pixeles y debe de ser en formato jpeg o png y menor de 4Mb</p>
                 </div>
             </div>
             @else
@@ -72,7 +72,7 @@
                 <label class="col-md-3 col-form-label text-right">Nueva Imagen :</label>
                 <div class="col-md-7">
                     <input type="file" class="form-control-file form-control-sm" id="imagen" name="imagen" accept="image/jpeg" accept="image/jpg" accept="image/JPEG" accept="image/JPG">
-                    <p style="font-size:12px"> La imagen debe ser de 1110 x 450 pixeles y debe de ser en formato jpeg o png y menor de 4Mb</p>
+                    <p style="font-size:12px"> La imagen debe ser de 1920 x 1040 pixeles y debe de ser en formato jpeg o png y menor de 4Mb</p>
                     @error('imagen')
                     <p class="form-text text-danger">{{ $message }}</p>
                     @enderror
