@@ -16,7 +16,7 @@
     <ul>
         @foreach ($noticias as $noticia)
         <li>
-            <a href="{{ route('detalle-noticias', ['titulo' => urlencode($noticia->titulo)]) }}">
+            <a href="{{ route('detalle-noticias', ['titulo' => urlencode($noticia->not_id)]) }}">
                 Leer más: {{ $noticia->titulo }}
             </a>
         </li>

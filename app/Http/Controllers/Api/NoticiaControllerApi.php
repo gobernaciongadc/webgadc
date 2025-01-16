@@ -307,11 +307,9 @@ class NoticiaControllerApi extends Controller
     // ParaFacebook
     public function getShowNoticiaByTitulo($titulo)
     {
-        // Decodificar el título desde la URL
-        $decodedTitulo = urldecode($titulo);
 
         // Buscar la noticia por título
-        $noticia = Noticia::where('titulo', $decodedTitulo)->firstOrFail();
+        $noticia = Noticia::where('not_id', $titulo)->firstOrFail();
 
         // Configurar metadatos Open Graph
         SEOMeta::setTitle($noticia->titulo);
