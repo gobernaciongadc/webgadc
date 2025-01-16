@@ -504,6 +504,7 @@ Route::group(['prefix' => 'sisadmin/'], function () {
     Route::put('interestv/{transmision}', [InterestvController::class, 'update'])->name('interestv.update');
     Route::delete('interestv/{transmision}', [InterestvController::class, 'destroy'])->name('interestv.destroy');
 
+    Route::get('noticias-seo', [NoticiaControllerApi::class, 'getNoticias'])->name('noticias-seo.getNoticias');
     Route::get('detalle-noticias/{titulo}', [NoticiaControllerApi::class, 'getShowNoticiaByTitulo'])
         ->name('detalle-noticias');
 });

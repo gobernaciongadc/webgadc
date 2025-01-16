@@ -10,6 +10,10 @@ use App\Services\UnidadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
+
 class NoticiaControllerApi extends Controller
 {
     protected $noticiaService;
@@ -301,9 +305,28 @@ class NoticiaControllerApi extends Controller
     //end noticias unidades
 
     // ParaFacebook
-    public function getShowNoticiaById()
+    public function getShowNoticiaByTitulo($titulo)
+    {
+        // Decodificar el título desde la URL
+        $decodedTitulo = urldecode($titulo);
+
+        // Buscar la noticia por título
+        $noticia = Noticia::where('titulo', $decodedTitulo)->firstOrFail();
+
+        // Configurar metadatos Open Graph
+        SEOMeta::setTitle($noticia->titulo);
+        SEOMeta::setDescription(substr($noticia->contenido, 0, 150));
+        OpenGraph::setTitle($noticia->titulo);
+        OpenGraph::setDescription(substr($noticia->contenido, 0, 150));
+        OpenGraph::setUrl(route('detalle-noticias', ['titulo' => $titulo]));
+        OpenGraph::addImage(asset('storage/uploads/' . $noticia->imagen));
+
+        return view('noticia.show', compact('noticia'));
+    }
+
+    public function getNoticias()
     {
         $noticias = Noticia::all();
-        return view('noticia.show', compact('noticias'));
+        return view('noticia.index-seo', compact('noticias'));
     }
 }
