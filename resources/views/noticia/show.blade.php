@@ -16,12 +16,12 @@
     <h1>{{ $noticia->titulo }}</h1>
     <img src="{{ asset('storage/uploads/' . $noticia->imagen) }}" alt="{{ $noticia->antetitulo }}">
 
-    <script>
+    <!-- <script>
         // Redirigir después de 5 segundos
         setTimeout(function() {
             window.location.href = "https://gobernaciondecochabamba.bo/web/detalle-noticias/" + "{{ urlencode($noticia->titulo) }}" + "/individual";
         }, 5000); // 5000 ms = 5 segundos
-    </script>
+    </script> -->
 </body>
 
 </html>
