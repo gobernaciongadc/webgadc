@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelsDto\ComunDto;
+use App\Models\Noticia;
 use App\Services\NoticiaService;
 use App\Services\UnidadService;
 use Illuminate\Http\Request;
@@ -297,7 +298,12 @@ class NoticiaControllerApi extends Controller
             return response()->json($comun->toArray(), 200);
         }
     }
-
     //end noticias unidades
 
+    // ParaFacebook
+    public function getShowNoticiaById()
+    {
+        $noticias = Noticia::all();
+        return view('noticia.show', compact('noticias'));
+    }
 }

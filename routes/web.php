@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\NoticiaControllerApi;
 use App\Http\Controllers\CategoriatvController;
 use App\Http\Controllers\CiudadanotvController;
 use App\Http\Controllers\ConSemanarioController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ModaltvController;
 use App\Http\Controllers\RadiotvController;
 use App\Http\Controllers\TransmisionController;
 use App\Models\Interestv;
+use App\Models\Noticia;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -501,7 +503,11 @@ Route::group(['prefix' => 'sisadmin/'], function () {
     Route::get('interestv/{transmision}/edit', [InterestvController::class, 'edit'])->name('interestv.edit');
     Route::put('interestv/{transmision}', [InterestvController::class, 'update'])->name('interestv.update');
     Route::delete('interestv/{transmision}', [InterestvController::class, 'destroy'])->name('interestv.destroy');
+
+    Route::get('detalle-noticias/{titulo}', [NoticiaControllerApi::class, 'getShowNoticiaByTitulo'])
+        ->name('detalle-noticias');
 });
+
 
 Route::get('/{any}', function () {
     return view('welcome');

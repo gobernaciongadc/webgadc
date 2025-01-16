@@ -437,7 +437,7 @@ class UnidadDespachoController extends Controller
             }
 
             // Procesar video si aplica
-            if ($request->hasFile('video_banner') && $request->tipo_archivo === 'video') {
+            if ($request->hasFile('video_banner')) {
                 $video = $request->file('video_banner');
                 $extensionVideo = $video->extension();
                 $nombreVideo = time() . '' . uniqid() . '.' . $extensionVideo;

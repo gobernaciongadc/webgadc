@@ -95,6 +95,7 @@ Route::group(['prefix' => 'noticia'], function () {
     Route::get('/noticias', 'Api\NoticiaControllerApi@getAllNoticiasTodasUnidades');
 });
 
+
 //hoy en la historia
 Route::group(['prefix' => 'historia'], function () {
     Route::get('/hoyHistoria', 'Api\HoyHistoriaControllerApi@hoyHistoria');
