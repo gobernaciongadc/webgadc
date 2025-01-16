@@ -339,8 +339,32 @@
                                 </table><br>
                                 @endif
                             </div>
+                            <div class="content" id="contenidoLista">
+                                <table class="table table-hover table-responsive-xl table-sm" id="tablaContenido">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>
+                                                <center>Video con resolucion de 1900 x 650</center>
+                                            </th>
+                                            <th width="8%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td align="center">
+                                                <video width="500" controls>
+                                                    <source src="{{asset('storage/uploads/'.$unidadDespacho->video_banner)}}" type="video/mp4">
+                                                </video>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table><br>
+                            </div>
                         </div>
                         <div class="col-md-6">
+
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-right">Imagenes banner:</label>
                                 <div class="col-md-8">
@@ -354,6 +378,38 @@
                                     <p style="font-size:12px">La imagen no puede ser mayor a 1740 x 550 pixeles y debe de ser en formato jpg o jpeg menor a 4Mb </p>
                                 </div>
                             </div>
+
+                            <!-- Video para el banner -->
+                            <div class="form-group row mt-4">
+                                <label class="col-md-4 col-form-label text-right">Video banner:</label>
+                                <div class="col-md-8">
+                                    <input type="file" class="form-control-file form-control-sm" id="video_banner" name="video_banner"
+                                        accept="video/mp4">
+                                    @error('video_banner')
+                                    <p class="form-text text-danger">{{ $message }}</p>
+                                    @enderror
+                                    <p style="font-size:12px">El video debe ser en formato MP4, con una resolución máxima de 1900 x 650 píxeles y un tamaño menor a 100MB.</p>
+                                </div>
+                            </div>
+
+                            <!-- Opciones para mostrar -->
+                            <div class="form-group row mt-4">
+                                <label class="col-md-4 col-form-label text-right">Mostrar en la Web:</label>
+                                <div class="col-md-8 d-flex align-items-center">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tipo_archivo" id="tipo_foto" value="imagenes" {{ (isset($unidadDespacho->tipo_archivo) && $unidadDespacho->tipo_archivo == 'imagenes') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="tipo_foto">Imagenes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tipo_archivo" id="tipo_video" value="video" {{ (isset($unidadDespacho->tipo_archivo) && $unidadDespacho->tipo_archivo == 'video') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="tipo_video">Video</label>
+                                    </div>
+                                </div>
+                                @error('tipo_archivo')
+                                <p class="form-text text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                             @if ($unidadDespacho->und_id == 0)
                             @else
                             <div class="row justify-content-center" style="margin-top: 50px;">

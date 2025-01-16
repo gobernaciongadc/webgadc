@@ -315,6 +315,7 @@ class UnidadDespachoController extends Controller
 
     public function storeeditar(Request $request)
     {
+        // dd($request->all());
         $tamImagenBanner = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-23");
         $tamImagenicono = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-12");
         $tamImagendireccion = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-8");
@@ -339,7 +340,9 @@ class UnidadDespachoController extends Controller
                 'vision.required' => 'El campo vision es requerido',
                 'objetivo.required' => 'El campo objetivo es requerido',
                 'historia.required' => 'El campo historia es requerido',
-                'imagen_banner.*.max' => 'El peso de la imagen banner no debe ser mayor a 4000 kilobytes'
+                'imagen_banner.*.max' => 'El peso de la imagen banner no debe ser mayor a 4000 kilobytes',
+                'tipo_archivo.required' => 'Debe seleccionar si desea mostrar imágenes o un video.',
+                'tipo_archivo.in' => 'El valor seleccionado para el tipo de archivo no es válido.',
             ];
             $validator = Validator::make($data, [
                 'nombre' => 'required',
@@ -347,7 +350,9 @@ class UnidadDespachoController extends Controller
                 'vision' => 'required',
                 'objetivo' => 'required',
                 'historia' => 'required',
-                'imagen_banner.*' => 'mimes:jpeg,jpg,png,JPEG,JPG,PNG|max:4000'
+                'imagen_banner.*' => 'mimes:jpeg,jpg,png,JPEG,JPG,PNG|max:4000',
+                'video_banner' => 'nullable|mimes:mp4|max:102400', // Para el video (100MB máximo)
+                'tipo_archivo' => 'required|in:imagenes,video', // Validación del tipo de archivo
             ], $messages);
 
             if ($validator->fails()) {
@@ -430,6 +435,18 @@ class UnidadDespachoController extends Controller
                 $path = $request->organigrama->storeAs('public/uploads/', $nombreAlterno . '.' . $extension);
                 $data['organigrama'] = $nombreAlterno . '.' . $extension;
             }
+
+            // Procesar video si aplica
+            if ($request->hasFile('video_banner') && $request->tipo_archivo === 'video') {
+                $video = $request->file('video_banner');
+                $extensionVideo = $video->extension();
+                $nombreVideo = time() . '' . uniqid() . '.' . $extensionVideo;
+                $video->move($ruta, $nombreVideo); // Mover el archivo al directorio especificado
+                $data['video_banner'] = $nombreVideo;
+            }
+
+            // Guardar tipo de archivo seleccionado
+            $data['tipo_archivo'] = $request->tipo_archivo;
 
             try {
                 $unidadDespacho = $this->unidadService->update($data);

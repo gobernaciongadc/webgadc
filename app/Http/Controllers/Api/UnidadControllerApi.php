@@ -88,6 +88,8 @@ class UnidadControllerApi extends Controller
                     $comun2 = new ComunDto();
                     $comun2->bgImage = asset('storage/uploads/' . $banner->imagen);
                     $comun2->texto = $despacho->nombre;
+                    $comun2->videoBanner = $despacho->video_banner;
+                    $comun2->tipoArchivo = $despacho->tipo_archivo;
                     $comun->data->push($comun2);
                 }
             }

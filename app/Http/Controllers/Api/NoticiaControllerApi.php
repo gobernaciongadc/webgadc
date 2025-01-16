@@ -145,6 +145,7 @@ class NoticiaControllerApi extends Controller
         }
     }
 
+    // Muestra todas las noticias
     public function getAllNoticiasTodasUnidades(Request $request)
     {
         try {

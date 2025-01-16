@@ -119,7 +119,7 @@ class DocumentoRepository
             ['publicar', '=', 1],
             ['estado', '=', 'AC'],
             // ['und_id', '=', $und_id]
-        ])->selectRaw("titulo,resumen,CONCAT('$ruta','/',COALESCE(archivo,'')) as archivo")
+        ])->selectRaw("titulo,resumen,fecha_publicacion,CONCAT('$ruta','/',COALESCE(archivo,'')) as archivo")
             ->orderBy($campoOrden, $maneraOrden)->paginate($limite);
     }
 

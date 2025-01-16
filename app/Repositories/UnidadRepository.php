@@ -94,6 +94,15 @@ class UnidadRepository
         if (isset($data['organigrama'])) {
             $unidad->organigrama = $data['organigrama'];
         }
+
+        if (isset($data['tipo_archivo'])) {
+            $unidad->tipo_archivo = $data['tipo_archivo'];
+        }
+
+        if (isset($data['video_banner'])) {
+            $unidad->video_banner = $data['video_banner'];
+        }
+
         if (isset($data['imagen_icono'])) {
             $unidad->imagen_icono = $data['imagen_icono'];
         }

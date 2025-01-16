@@ -33,69 +33,84 @@ class Unidad extends Model
         'latitud',
         'longitud',
         'imagen_direccion',
+        'video_banner',
+        'tipo_archivo',
         'bio_id',
         'und_padre_id',
         'tiu_id'
     ];
 
-    public function usuarios() {
+    public function usuarios()
+    {
         return $this->hasMany(\App\User::class, 'und_id', 'und_id');
     }
 
-    public function unidadPadre(){
-        return $this->belongsTo(\App\Models\Unidad::class,'und_padre_id','und_id');
+    public function unidadPadre()
+    {
+        return $this->belongsTo(\App\Models\Unidad::class, 'und_padre_id', 'und_id');
     }
 
-    public function unidadesHijo(){
-        return $this->hasMany(\App\Models\Unidad::class,'und_padre_id','und_id');
+    public function unidadesHijo()
+    {
+        return $this->hasMany(\App\Models\Unidad::class, 'und_padre_id', 'und_id');
     }
 
-    public function tipoUnidad(){
-        return $this->belongsTo(\App\Models\TipoUnidad::class,'tiu_id','tiu_id');
+    public function tipoUnidad()
+    {
+        return $this->belongsTo(\App\Models\TipoUnidad::class, 'tiu_id', 'tiu_id');
     }
 
-    public function biografia(){
-        return $this->belongsTo(\App\Models\Biografia::class,'bio_id','bio_id');
+    public function biografia()
+    {
+        return $this->belongsTo(\App\Models\Biografia::class, 'bio_id', 'bio_id');
     }
 
-    public function imagenUnidades() {
+    public function imagenUnidades()
+    {
         return $this->hasMany(\App\Models\ImagenUnidad::class, 'und_id', 'und_id');
     }
 
-    public function imagenUnidadGalerias() {
+    public function imagenUnidadGalerias()
+    {
         return $this->hasMany(\App\Models\ImagenUnidadGaleria::class, 'und_id', 'und_id');
     }
 
-    public function convocatorias() {
+    public function convocatorias()
+    {
         return $this->hasMany(\App\Models\Convocatoria::class, 'und_id', 'und_id');
     }
 
-    public function videoSonidos() {
+    public function videoSonidos()
+    {
         return $this->hasMany(\App\Models\VideoSonido::class, 'und_id', 'und_id');
     }
 
-    public function documentoLegales() {
+    public function documentoLegales()
+    {
         return $this->hasMany(\App\Models\DocumentoLegal::class, 'und_id', 'und_id');
     }
-    public function serviciosPublicos() {
+    public function serviciosPublicos()
+    {
         return $this->hasMany(\App\Models\Convocatoria::class, 'und_id', 'und_id');
     }
 
-    public function programas() {
+    public function programas()
+    {
         return $this->hasMany(\App\Models\Programa::class, 'und_id', 'und_id');
     }
 
-    public function productos() {
+    public function productos()
+    {
         return $this->hasMany(\App\Models\Producto::class, 'und_id', 'und_id');
     }
 
-    public function rendicionCuentas() {
+    public function rendicionCuentas()
+    {
         return $this->hasMany(\App\Models\RendicionCuenta::class, 'und_id', 'und_id');
     }
 
-    public function proyectos() {
+    public function proyectos()
+    {
         return $this->hasMany(\App\Models\Proyecto::class, 'und_id', 'und_id');
     }
-
-
 }
