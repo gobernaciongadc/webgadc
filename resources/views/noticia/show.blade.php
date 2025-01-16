@@ -20,7 +20,7 @@
         // Redirigir después de 5 segundos
         setTimeout(function() {
             window.location.href = "https://gobernaciondecochabamba.bo/web/detalle-noticias/" + "{{ urlencode($noticia->titulo) }}" + "/individual";
-        }, 100); // 5000 ms = 5 segundos
+        }, 1); // 5000 ms = 5 segundos
     </script>
 </body>
 
