@@ -64,6 +64,7 @@
                         <th>Fecha</th>
                         <th>Prioridad</th>
                         <th>Publicar</th>
+                        <th>Url para facebook</th>
                         <th width="20%">Acciones</th>
                     </tr>
                 </thead>
@@ -79,8 +80,8 @@
                     <tr>
                         <td>{{$noticias->firstItem() + $key}}</td>
                         <td>{{$noticia->usuario->name}}</td>
-                        <td>{{$noticia->titulo}}</td>
-                        <td>{{$noticia->resumen}}</td>
+                        <td style="width: 20%;">{{$noticia->titulo}}</td>
+                        <td style="width: 20%;">{{$noticia->resumen}}</td>
                         <td>
                             {{
                                     Html::image(asset('storage/uploads/'.$noticia->imagen), 'Sin Imagen', array('id'=>'imagen', 'class' =>'img-thumbnail','width'=>'90'))
@@ -97,6 +98,7 @@
                             {{$publicar[$noticia->publicar]}}
                             @endif
                         </td>
+                        <td>https://gobernaciondecochabamba.bo/sisadmin/detalle-noticias/{{$noticia->not_id}}</td>
                         <td>
                             @if (verificarAcceso(9))
                             <a href="{{ url('sisadmin/noticia/edit/'.$noticia->not_id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</a>
