@@ -333,7 +333,7 @@
                         <li><a class="dropdown-item @if(!verificarAcceso(68)) disabled @endif" href="{{url('sisadmin/rendicioncuenta/'.Auth::user()->und_id.'/lista')}}">Rendición de Cuentas</a></li>
 
                         <!-- Planes -->
-                        <li><a class="dropdown-item @if(!verificarAcceso(105)) disabled @endif" href="{{url('sisadmin/plan')}}">Pilares de la Gestión</a></li>
+                        <li><a class="dropdown-item @if(!verificarAcceso(105)) disabled @endif" href="{{url('sisadmin/plan')}}">Planes Institucionales</a></li>
 
 
                         <!-- <li><a class="dropdown-item @if(!verificarAcceso(99)) disabled @endif" href="{{url('sisadmin/pregunta')}}">Encuestas</a></li> -->
