@@ -93,7 +93,7 @@ class BannerControllerApi extends Controller
                 return response()->json([
                     'code' => 404,
                     'status' => 'error',
-                    'message' => 'No hay campaña'
+                    'message' => 'No hay campaña para mostrar'
                 ], 404);
             }
 
