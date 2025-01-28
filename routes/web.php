@@ -11,6 +11,7 @@ use App\Http\Controllers\JakutvController;
 use App\Http\Controllers\ModaltvController;
 use App\Http\Controllers\RadiotvController;
 use App\Http\Controllers\TransmisionController;
+use App\Http\Controllers\VideoSonidoController;
 use App\Models\Interestv;
 use App\Models\Noticia;
 use Illuminate\Support\Facades\Route;
@@ -146,12 +147,59 @@ Route::group(['prefix' => 'sisadmin/'], function () {
     });
 
     Route::group(['prefix' => 'videosonido'], function () {
+
         Route::get('/{und_id}', 'VideoSonidoController@index')->middleware('accesos:13');
         Route::get('/create/{und_id}', 'VideoSonidoController@create')->middleware('accesos:14');
         Route::get('/edit/{vis_id}/{und_id}', 'VideoSonidoController@edit')->middleware('accesos:15');
         Route::post('/store', 'VideoSonidoController@store');
         Route::post('/_modificarEstado', 'VideoSonidoController@_modificarEstado')->middleware('accesos:17');
         Route::post('/_cambiarPublicar', 'VideoSonidoController@_cambiarPublicar')->middleware('accesos:16');
+
+        Route::get('/createcampanias/{id}/{titulo}', 'VideoSonidoController@createCampanias');
+
+        // Banner principal
+        Route::post('/storecampaniasbanner', [VideoSonidoController::class, 'storeCampaniasBanner'])->name('storecampaniasbanner');
+        Route::delete('/deletecampaniasbanner/{id}', [VideoSonidoController::class, 'deleteCampaniasBanner'])->name('deletecampaniasbanner');
+
+        // Portada video banner
+        Route::post('/storecampaniasvideo', [VideoSonidoController::class, 'storeCampaniasVideo'])->name('storecampaniasvideo');
+        Route::delete('/deletecampaniasvideo/{id}', [VideoSonidoController::class, 'deleteCampaniasVideo'])->name('deletecampaniasvideo');
+        // Archivos mp4 de video banner para bajar
+        Route::post('/downloadcampaniasvideo', [VideoSonidoController::class, 'downloadCampaniasVideo'])->name('downloadcampaniasvideo');
+        Route::delete('/deletedownloadcampaniasvideo/{id}', [VideoSonidoController::class, 'deleteDownloadCampaniasVideo'])->name('deletedownloadcampaniasvideo');
+
+        // Portada Afiche
+        Route::post('/storecampaniasafiche', [VideoSonidoController::class, 'storeCampaniasAfiche'])->name('storecampaniasafiche');
+        Route::delete('/deletecampaniasafiche/{id}', [VideoSonidoController::class, 'deleteCampaniasAfiche'])->name('deletecampaniasafiche');
+        // Archivos mp4 de video banner para bajar
+        Route::post('/downloadcampaniasafiche', [VideoSonidoController::class, 'downloadCampaniasAfiche'])->name('downloadcampaniasafiche');
+        Route::delete('/deletedownloadcampaniasafiche/{id}', [VideoSonidoController::class, 'deleteDownloadCampaniasAfiche'])->name('deletedownloadcampaniasafiche');
+
+
+        // Portada Volante
+        Route::post('/storecampaniasvolante', [VideoSonidoController::class, 'storeCampaniasVolante'])->name('storecampaniasvolante');
+        Route::delete('/deletecampaniasvolante/{id}', [VideoSonidoController::class, 'deleteCampaniasVolante'])->name('deletecampaniasvolante');
+        // Archivos mp4 de video banner para bajar
+        Route::post('/downloadcampaniasvolante', [VideoSonidoController::class, 'downloadCampaniasVolante'])->name('downloadcampaniasvolante');
+        Route::delete('/deletedownloadcampaniasvolante/{id}', [VideoSonidoController::class, 'deleteDownloadCampaniasVolante'])->name('deletedownloadcampaniasvolante');
+
+
+        // Portada Redes
+        Route::post('/storecampaniasredes', [VideoSonidoController::class, 'storeCampaniasRedes'])->name('storecampaniasredes');
+        Route::delete('/deletecampaniasredes/{id}', [VideoSonidoController::class, 'deleteCampaniasRedes'])->name('deletecampaniasredes');
+        // Archivos mp4 de video banner para bajar
+        Route::post('/downloadcampaniasredes', [VideoSonidoController::class, 'downloadCampaniasRedes'])->name('downloadcampaniasredes');
+        Route::delete('/deletedownloadcampaniasredes/{id}', [VideoSonidoController::class, 'deleteDownloadCampaniasRedes'])->name('deletedownloadcampaniasredes');
+
+        // Portada Historia
+        Route::post('/storecampaniashistoria', [VideoSonidoController::class, 'storeCampaniasHistoria'])->name('storecampaniashistoria');
+        Route::delete('/deletecampaniashistoria/{id}', [VideoSonidoController::class, 'deleteCampaniasHistoria'])->name('deletecampaniashistoria');
+        // Archivos mp4 de video banner para bajar
+        Route::post('/downloadcampaniashistoria', [VideoSonidoController::class, 'downloadCampaniasHistoria'])->name('downloadcampaniashistoria');
+        Route::delete('/deletedownloadcampaniashistoria/{id}', [VideoSonidoController::class, 'deleteDownloadCampaniasHistoria'])->name('deletedownloadcampaniashistoria');
+
+
+        Route::post('/updatecampanias', 'VideoSonidoController@updateCampanias');
     });
 
     Route::group(['prefix' => 'convocatoria'], function () {

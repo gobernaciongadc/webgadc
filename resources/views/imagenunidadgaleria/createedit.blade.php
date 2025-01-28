@@ -17,7 +17,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         @if ( $imagenUnidadGaleria->iug_id == 0)
-        <h3 align="center">Nueva Imagen galeria</h3>
+        <h3 align="center"></h3>
         @else
         <h3 align="center">Editar Imagen Campaña</h3>
         @endif
@@ -38,25 +38,20 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label text-right">Descripcion*:</label>
-                <div class="col-md-7">
-                    <textarea rows="4" cols="40" type="text" class="form-control form-control-sm" name="descripcion" id="descripcion" required>{{ old('descripcion',$imagenUnidadGaleria->descripcion) }}</textarea>
-                    @error('descripcion')
-                    <p class="form-text text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div><br>
+
+            <textarea hidden rows="4" cols="40" type="text" class="form-control form-control-sm" name="descripcion" id="descripcion" required>{{ old('descripcion',$imagenUnidadGaleria->descripcion) }}Hola Mundo</textarea>
+
+
 
             @if ( $imagenUnidadGaleria->iug_id == 0)
             <div class="form-group row">
-                <label class="col-md-3 col-form-label text-right">Nueva Imagen:</label>
+                <label class="col-md-3 col-form-label text-right">Imagen Portada WEB:</label>
                 <div class="col-md-7">
                     <input type="file" class="form-control-file form-control-sm" id="imagen" name="imagen" accept="image/jpeg,image/jpg,image/JPEG,image/JPG" required>
                     @error('imagen')
                     <p class="form-text text-danger">{{ $message }}</p>
                     @enderror
-                    <p style="font-size:12px"> La imagen debe ser de 1920 x 1040 pixeles y debe de ser en formato jpeg o png y menor de 4Mb</p>
+                    <p style="font-size:12px"> La imagen debe ser de 1110 x 570 pixeles y debe de ser en formato jpeg o png y menor de 4Mb</p>
                 </div>
             </div>
             @else

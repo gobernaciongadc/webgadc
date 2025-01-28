@@ -179,7 +179,8 @@ class VideoSonidoControllerApi extends Controller
             $comun = new ComunDto();
             $comun->status = true;
             $comun->message = $unidad->nombre;
-            $comun->data = new ComunDto();
+            $comun->unidad = $unidad;
+            $comun->dato = new ComunDto();
             $comun->data = $this->imagenUnidadGaleriaService->getGaleriaAcPublicarPaginate($limite, $orden, $und_id);
             return response()->json($comun->toArray(), 200);
         } catch (\Exception $e) {

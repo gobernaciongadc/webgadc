@@ -135,3 +135,16 @@ estado estado_enum NOT NULL DEFAULT 'off',
 created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
 updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW()
 );
+
+<!-- Campañas -->
+
+CREATE TABLE campanias (
+id SERIAL PRIMARY KEY,
+imagen_banner VARCHAR(255) NOT NULL,
+tipo_documento TEXT,
+url_imagen VARCHAR(255) NOT NULL,
+archivo TEXT,
+compania_id INT, -- Tipo definido, se puede usar FOREIGN KEY si es necesario
+created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);

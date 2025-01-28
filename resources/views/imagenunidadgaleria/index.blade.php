@@ -11,19 +11,19 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{$tituloUnidad}}</li>
-        <li class="breadcrumb-item active" aria-current="page">Imagen Galeria</li>
+        <li class="breadcrumb-item active" aria-current="page">Campañas</li>
     </ol>
 </nav>
 <!-- Breadcrumb Area End-->
 <div class="row justify-content-center">
     <div class="col-md-12">
-        <h3 align="center">Lista de galeria de fotos de campañas</h3>
+        <h3 align="center">Lista de campañas</h3>
         <div class="col-md-12">
             <div class="col-md-12">
                 @if (verificarAcceso(3))
-                <a href="{{ url('sisadmin/imagenunidadgaleria/create/'.$und_id.'/'.$ruta) }}" class="btn btn-primary btn-sm" id="btnNuevo"><i class="fa fa-plus"></i> Agregar</a>
+                <a href="{{ url('sisadmin/imagenunidadgaleria/create/'.$und_id.'/'.$ruta) }}" class="btn btn-primary btn-sm" id="btnNuevo"><i class="fa fa-plus"></i> Agregar Campaña</a>
                 @else
-                <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-plus"></i> Agregar</a>
+                <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-plus"></i> Agregar Campaña</a>
                 @endif
                 <br>
 
@@ -32,9 +32,9 @@
                         <thead>
                             <tr>
                                 <th>N°</th>
-                                <th>Titulo</th>
-                                <th>Descripcion</th>
-                                <th>Imagen</th>
+                                <th>Titulo campaña</th>
+                                <!-- <th>Descripcion</th> -->
+                                <th>Portada web</th>
                                 <th width="10%">Publicar</th>
                                 <th width="17%">Acciones</th>
                             </tr>
@@ -46,9 +46,9 @@
                                 <td>
                                     {{$item->titulo}}
                                 </td>
-                                <td>
+                                <!-- <td>
                                     {{$item->descripcion}}
-                                </td>
+                                </td> -->
                                 <td>
                                     {{
                                                 Html::image(asset('storage/uploads/'.$item->imagen), 'Sin Imagen', array('id'=>'imagen', 'class' =>'img-thumbnail','width'=>'90'))
@@ -64,6 +64,7 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <a href="{{ url('sisadmin/videosonido/createcampanias/'.$item->iug_id.'/'.$item->titulo) }}" class="btn btn-info btn-sm"><i class="fa fa-upload"></i> Agregar Datos</a>
                                     @if (verificarAcceso(4))
                                     <a href="{{ url('sisadmin/imagenunidadgaleria/edit/'.$item->iug_id.'/'.$item->und_id.'/'.$ruta) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</a>
                                     @else

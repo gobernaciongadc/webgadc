@@ -194,3 +194,9 @@ Route::group(['prefix' => 'interes'], function () {
     Route::get('ciudadano', 'Api\CiudadanotvControllerApi@index');
     Route::get('detuinteres', 'Api\InterestvControllerApi@index');
 });
+
+Route::group(['prefix' => 'bannercampania'], function () {
+    Route::get('listbannercampania/{id}', 'Api\BannerControllerApi@index');
+    Route::get('getbannercampania/{id}', 'Api\BannerControllerApi@getIndex');
+    Route::get('getcampania/{id}', 'Api\BannerControllerApi@getCampania');
+});

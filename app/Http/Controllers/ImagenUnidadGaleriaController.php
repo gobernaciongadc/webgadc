@@ -71,7 +71,7 @@ class ImagenUnidadGaleriaController extends Controller
         $ruta = storage_path('app/public/uploads/');
         $tamImagenGaleria = $this->parametricaService->getParametricaByTipoAndCodigo("TIPO-IMAGEN-23");
         $xgaleria = 1110; //$tamImagenGaleria->valor2;
-        $ygaleria = 450; //$tamImagenGaleria->valor3;
+        $ygaleria = 570; //$tamImagenGaleria->valor3;
         $tipogaleria = $tamImagenGaleria->valor1;
         $data['fecha'] = date('Y-m-d');
 
