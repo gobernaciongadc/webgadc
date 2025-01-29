@@ -32,6 +32,7 @@ class DocumentoLegalController extends Controller
         $this->middleware('auth');
     }
 
+    // Index
     public function index($und_id, Request $request)
     {
         $searchtype = 1;

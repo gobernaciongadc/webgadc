@@ -25,7 +25,7 @@
             <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-plus"></i> Agregar</a>
             @endif
             <br>
-
+            <!-- DataTables -->
             <div class="content" id="contenidoLista">
                 <table class="table table-hover table-responsive-xl table-sm" id="tablaContenido">
                     <thead>
