@@ -27,6 +27,7 @@ class DocumentoLegalRepository
         $documentoLegal->resumen = $data['resumen'];
         $documentoLegal->contenido = $data['contenido'];
         $documentoLegal->archivo = $data['archivo'];
+        $documentoLegal->anexo = $data['anexo'];
         $documentoLegal->fecha_aprobacion = $data['fecha_aprobacion'];
         $documentoLegal->fecha_promulgacion = $data['fecha_promulgacion'];
         $documentoLegal->numero_documento = $data['numero_documento'];
@@ -58,6 +59,9 @@ class DocumentoLegalRepository
         $documentoLegal->numero_documento = $data['numero_documento'];
         if (isset($data['archivo'])) {
             $documentoLegal->archivo = $data['archivo'];
+        }
+        if (isset($data['anexo'])) {
+            $documentoLegal->anexo = $data['anexo'];
         }
         if (isset($data['fecha_registro'])) {
             $documentoLegal->fecha_registro = $data['fecha_registro'];
@@ -151,7 +155,7 @@ class DocumentoLegalRepository
             ])->whereHas('tipoUnidad', function ($query2) {
                 $query2->where('tipo', '=', 0);
             });
-        })->selectRaw(" titulo,resumen,contenido,'$tipo' as tipo,to_char(fecha_aprobacion,'DD/MM/YYYY') as fechaaprobacion,to_char(fecha_promulgacion,'DD/MM/YYYY') as fechapromulgacion,numero_documento as numerodocumento,CONCAT('$ruta','/',COALESCE(archivo,'')) as archivo ")
+        })->selectRaw(" titulo,resumen,contenido,'$tipo' as tipo,to_char(fecha_aprobacion,'DD/MM/YYYY') as fechaaprobacion,to_char(fecha_promulgacion,'DD/MM/YYYY') as fechapromulgacion,numero_documento as numerodocumento,CONCAT('$ruta','/', COALESCE(archivo,'')) as archivo, CONCAT('$ruta','/',COALESCE(anexo,'')) as url_anexo,anexo")
             ->orderBy($campoOrden, $maneraOrden)->paginate($limite);
     }
 

@@ -16,8 +16,7 @@ class DocumentoLegalControllerApi extends Controller
     public function __construct(
         DocumentoLegalService $documentoLegalService,
         UnidadService $unidadService
-    )
-    {
+    ) {
         $this->documentoLegalService = $documentoLegalService;
         $this->unidadService = $unidadService;
     }
@@ -32,7 +31,7 @@ class DocumentoLegalControllerApi extends Controller
             $limite = 8;
             //$guias = $this->guiaTramiteService->getGuiasTramitesPublicarSiAndAcByLimitOfDespacho($limite);
             $documentos = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcByLimitOfDespacho($limite);
-            foreach ($documentos as $key=>$documento){
+            foreach ($documentos as $key => $documento) {
                 $docu = new ComunDto();
                 $docu->titulo = $documento->titulo;
                 $docu->resumen = $documento->resumen;
@@ -41,17 +40,16 @@ class DocumentoLegalControllerApi extends Controller
                 $docu->fechaAprobacion = $documento->fecha_aprobacion;
                 $docu->fechaPromulgacion = $documento->fecha_promulgacion;
                 $docu->numeroDocumento = $documento->numero_documento;
-                $docu->archivo = asset('storage/uploads/'.$documento->archivo);
+                $docu->archivo = asset('storage/uploads/' . $documento->archivo);
                 $comun->data->push($docu);
             }
-            return response()->json($comun->toArray(),200);
-
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -65,8 +63,8 @@ class DocumentoLegalControllerApi extends Controller
             $comun->data->leyes = new Collection();
             $comun->data->decretos = new Collection();
             $limite = 3;
-            $leyes = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcByLimitOfDespachoByTipoDocumentoLiteral($limite,'Leyes');
-            foreach ($leyes as $key=>$ley){
+            $leyes = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcByLimitOfDespachoByTipoDocumentoLiteral($limite, 'Leyes');
+            foreach ($leyes as $key => $ley) {
                 $docu = new ComunDto();
                 $docu->titulo = $ley->titulo;
                 $docu->resumen = $ley->resumen;
@@ -75,11 +73,11 @@ class DocumentoLegalControllerApi extends Controller
                 $docu->fechaAprobacion = $ley->fecha_aprobacion;
                 $docu->fechaPromulgacion = $ley->fecha_promulgacion;
                 $docu->numeroDocumento = $ley->numero_documento;
-                $docu->archivo = asset('storage/uploads/'.$ley->archivo);
+                $docu->archivo = asset('storage/uploads/' . $ley->archivo);
                 $comun->data->leyes->push($docu);
             }
-            $decretos = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcByLimitOfDespachoByTipoDocumentoLiteral($limite,'Decretos');
-            foreach ($decretos as $key=>$decreto){
+            $decretos = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcByLimitOfDespachoByTipoDocumentoLiteral($limite, 'Decretos');
+            foreach ($decretos as $key => $decreto) {
                 $docu = new ComunDto();
                 $docu->titulo = $decreto->titulo;
                 $docu->resumen = $decreto->resumen;
@@ -88,16 +86,16 @@ class DocumentoLegalControllerApi extends Controller
                 $docu->fechaAprobacion = $decreto->fecha_aprobacion;
                 $docu->fechaPromulgacion = $decreto->fecha_promulgacion;
                 $docu->numeroDocumento = $decreto->numero_documento;
-                $docu->archivo = asset('storage/uploads/'.$decreto->archivo);
+                $docu->archivo = asset('storage/uploads/' . $decreto->archivo);
                 $comun->data->decretos->push($docu);
             }
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
@@ -108,34 +106,34 @@ class DocumentoLegalControllerApi extends Controller
             $orden = 1;
             $search = '';
             $tipo = 'Leyes';
-            if ($request->has('limite')){
+            if ($request->has('limite')) {
                 $limite = $request->limite;
             }
-            if ($request->has('orden')){
+            if ($request->has('orden')) {
                 $orden = $request->orden;
             }
-            if ($request->has('search')){
+            if ($request->has('search')) {
                 $search = $request->search;
             }
-            if ($request->has('tipo')){
+            if ($request->has('tipo')) {
                 $tipo = $request->tipo;
             }
             $comun = new ComunDto();
             $comun->status = true;
             $comun->message = 'Leyes y Decretos Paginados';
             $comun->data = new ComunDto();
-            $comun->data = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcOfDespachoPaginadoByTipoDocumento($limite,$orden,$search,$tipo);
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            $comun->data = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcOfDespachoPaginadoByTipoDocumento($limite, $orden, $search, $tipo);
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
 
-    public function getTodosDocumentosLegalesOfUnidadPaginado($und_id,Request $request)
+    public function getTodosDocumentosLegalesOfUnidadPaginado($und_id, Request $request)
     {
         try {
             $unidad = $this->unidadService->getById($und_id);
@@ -143,32 +141,30 @@ class DocumentoLegalControllerApi extends Controller
             $orden = 1;
             $search = '';
             $tipo = 'Leyes';
-            if ($request->has('limite')){
+            if ($request->has('limite')) {
                 $limite = $request->limite;
             }
-            if ($request->has('orden')){
+            if ($request->has('orden')) {
                 $orden = $request->orden;
             }
-            if ($request->has('search')){
+            if ($request->has('search')) {
                 $search = $request->search;
             }
-            if ($request->has('tipo')){
+            if ($request->has('tipo')) {
                 $tipo = $request->tipo;
             }
             $comun = new ComunDto();
             $comun->status = true;
             $comun->message = $unidad->nombre;
             $comun->data = new ComunDto();
-            $comun->data = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcOfUnidadPaginadoByTipoDocumento($und_id,$limite,$orden,$search,$tipo);
-            return response()->json($comun->toArray(),200);
-        }catch (\Exception $e){
+            $comun->data = $this->documentoLegalService->getDocumentosLegalesPublicarSiAndAcOfUnidadPaginadoByTipoDocumento($und_id, $limite, $orden, $search, $tipo);
+            return response()->json($comun->toArray(), 200);
+        } catch (\Exception $e) {
             $comun = new ComunDto();
             $comun->status = false;
             $comun->message = $e->getMessage();
             $comun->data = new Collection();
-            return response()->json($comun->toArray(),200);
+            return response()->json($comun->toArray(), 200);
         }
     }
-
-
 }
