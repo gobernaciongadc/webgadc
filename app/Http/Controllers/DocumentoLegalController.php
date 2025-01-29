@@ -40,7 +40,11 @@ class DocumentoLegalController extends Controller
         $publicar = [0 => 'NO', 1 => 'SI'];
         $unidad = $this->unidadService->getById($und_id);
         $titulo = $unidad->nombre;
-        $lista = $this->documentoLegalService->getAllPaginateBySearchAndSort(10, $und_id);
+        $lista = DocumentoLegal::where([
+            ['estado', '=', 'AC'],
+            ['und_id', '=', $und_id]
+        ])->orderBy('fecha_aprobacion', 'desc')->get();
+
         return view('documentolegal.index', compact('lista', 'titulo', 'und_id', 'publicar', 'searchtype', 'search', 'sort', 'unidad'));
     }
 

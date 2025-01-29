@@ -25,6 +25,7 @@
             <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-plus"></i> Agregar</a>
             @endif
             <br>
+
             <div class="content" id="contenidoLista">
                 <table class="table table-hover table-responsive-xl table-sm" id="tablaContenido">
                     <thead>
@@ -47,7 +48,7 @@
                         @endphp
                         @foreach ($lista as $key => $item)
                         <tr>
-                            <td>{{$lista->firstItem() + $key}}</td>
+                            <td>{{ $key + 1}}</td>
                             <td>
                                 {{$item->titulo}}
                             </td>
@@ -94,16 +95,36 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-center">
-                    {{ $lista->appends(['searchtype'=>$searchtype,'search'=>$search,'sort'=>$sort])->links() }}
-                </div>
+
             </div>
+
         </div>
     </div>
 </div>
 @endsection
 
 @section('footer_scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#tablaContenido').DataTable({
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+            }
+        })
+    })
+</script>
+
 <script type="text/javascript">
     function modificarEstado(dol_id, titulo) {
         var mensajeConsulta = '¿Desea eliminar el documento legal : <br> ' + titulo + '?';

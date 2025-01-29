@@ -180,8 +180,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-
+        App\Providers\RouteServiceProvider::class
     ],
 
     /*
@@ -238,7 +237,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
-        'SEOTools' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'SEOTools' => Artesaos\SEOTools\Facades\SEOTools::class
     ],
 
 ];
