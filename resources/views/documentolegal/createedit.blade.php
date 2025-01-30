@@ -148,7 +148,7 @@
                 <label class="col-md-1 col-form-label"></label>
                 <label class="col-md-2 col-form-label text-right">Anexo<span class="text-danger font-10">(Opcional)</span>:</label>
                 <div class="col-md-8">
-                    <input type="file" class="form-control-file form-control-sm" id="anexo" name="anexo" accept="application/msword, application/vnd.ms-excel,.xlsx, application/pdf" required>
+                    <input type="file" class="form-control-file form-control-sm" id="anexo" name="anexo" accept="application/msword, application/vnd.ms-excel,.xlsx, application/pdf">
                     @error('archivo')
                     <p class="form-text text-danger">{{ $message }}</p>
                     @enderror
