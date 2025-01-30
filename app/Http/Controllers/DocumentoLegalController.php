@@ -69,6 +69,8 @@ class DocumentoLegalController extends Controller
     public  function store(Request $request)
     {
 
+
+
         $user = Auth::user();
         $data = $request->except('_token');
         $data['usr_id'] = $user->id;

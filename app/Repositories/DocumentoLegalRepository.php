@@ -27,7 +27,7 @@ class DocumentoLegalRepository
         $documentoLegal->resumen = $data['resumen'];
         $documentoLegal->contenido = $data['contenido'];
         $documentoLegal->archivo = $data['archivo'];
-        $documentoLegal->anexo = $data['anexo'];
+        $documentoLegal->anexo = $data['anexo'] ?? null;
         $documentoLegal->fecha_aprobacion = $data['fecha_aprobacion'];
         $documentoLegal->fecha_promulgacion = $data['fecha_promulgacion'];
         $documentoLegal->numero_documento = $data['numero_documento'];
@@ -38,6 +38,7 @@ class DocumentoLegalRepository
         $documentoLegal->tdl_id = $data['tdl_id'];
         $documentoLegal->publicar = $data['publicar'];
         $documentoLegal->estado = 'AC';
+
         $documentoLegal->save();
         return $documentoLegal->fresh();
     }

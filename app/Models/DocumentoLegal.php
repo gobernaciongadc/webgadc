@@ -18,6 +18,7 @@ class DocumentoLegal extends Model
         'resumen',
         'contenido',
         'archivo',
+        'anexo',
         'fecha_aprobacion',
         'fecha_promulgacion',
         'numero_documento',
@@ -30,17 +31,18 @@ class DocumentoLegal extends Model
         'tdl_id'
     ];
 
-    public function tipoDocumentoLegal(){
-        return $this->belongsTo(\App\Models\TipoDocumentoLegal::class,'tdl_id','tdl_id');
+    public function tipoDocumentoLegal()
+    {
+        return $this->belongsTo(\App\Models\TipoDocumentoLegal::class, 'tdl_id', 'tdl_id');
     }
 
-    public function usuario(){
-        return $this->belongsTo(\App\User::class,'usr_id','id');
+    public function usuario()
+    {
+        return $this->belongsTo(\App\User::class, 'usr_id', 'id');
     }
 
-    public function unidad(){
-        return $this->belongsTo(\App\Models\Unidad::class,'und_id','und_id');
+    public function unidad()
+    {
+        return $this->belongsTo(\App\Models\Unidad::class, 'und_id', 'und_id');
     }
-
-
 }
