@@ -6,7 +6,7 @@
 </style>
 @endsection
 @section('content')
-<!-- Breadcrumb Area Start -->
+<!-- Breadcrumb Area Start  -->
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
